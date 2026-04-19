@@ -69,13 +69,13 @@
     "offers": [
       {
         "@type": "Offer",
-        "name": "Plan Starter",
-        "description": "DealerAmigo básico para negocios pequeños. Incluye agente IA activo 24/7, hasta 50 leads por mes, 1 canal (WhatsApp), setup completo.",
+        "name": "Arranca",
+        "description": "Landing de servicio con bot que captura y agenda, recordatorios Twilio y seguimiento automatizado. Setup incluido.",
         "priceCurrency": "USD",
-        "price": "99",
+        "price": "100",
         "priceSpecification": {
           "@type": "UnitPriceSpecification",
-          "price": "99",
+          "price": "100",
           "priceCurrency": "USD",
           "unitText": "mes"
         },
@@ -83,13 +83,13 @@
       },
       {
         "@type": "Offer",
-        "name": "Plan Esencial",
-        "description": "DealerAmigo completo con leads ilimitados, 3 canales (WhatsApp, Facebook, Web), inventario en vivo con fotos y precios reales, soporte prioritario.",
+        "name": "Escala",
+        "description": "Todo Arranca más manejo de inventario, bot con Claude API pensante como humano, dominio propio, G-Suite y redes sociales.",
         "priceCurrency": "USD",
-        "price": "399",
+        "price": "1000",
         "priceSpecification": {
           "@type": "UnitPriceSpecification",
-          "price": "399",
+          "price": "1000",
           "priceCurrency": "USD",
           "unitText": "mes"
         },
@@ -97,7 +97,7 @@
       },
       {
         "@type": "Offer",
-        "name": "Plan BDC Completo",
+        "name": "Transforma",
         "description": "IA más equipo humano que opera el BDC completo. Incluye follow-up humano y automatizado, gerente de cuenta dedicado, reportes semanales de conversión y garantía de 30 días.",
         "priceCurrency": "USD",
         "price": "999",
@@ -227,7 +227,7 @@
     background: var(--black);
     color: var(--white);
     font-family: 'DM Sans', sans-serif;
-    font-size: 17px;
+    font-size: 19px;
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -326,7 +326,7 @@
   .hero h1 em { font-style: normal; color: var(--red); }
 
   .hero-sub {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
     font-weight: 300;
     color: #aaa;
     max-width: 560px;
@@ -560,7 +560,7 @@
     letter-spacing: -0.01em;
   }
 
-  .flow-step p { font-size: 0.85rem; color: #777; line-height: 1.5; font-weight: 300; }
+  .flow-step p { font-size: 1rem; color: #777; line-height: 1.5; font-weight: 300; }
 
   /* ── FAQ — AEO OPTIMIZADO ── */
   .faq-section {
@@ -597,7 +597,7 @@
   }
 
   .faq-a {
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     color: #888;
     max-height: 0;
     overflow: hidden;
@@ -835,7 +835,7 @@
   }
 
   .footer-logo span { color: var(--red); }
-  .footer-tagline { font-size: 0.82rem; color: #555; line-height: 1.5; font-weight: 300; }
+  .footer-tagline { font-size: 1rem; color: #555; line-height: 1.5; font-weight: 300; }
   .footer-contact { font-size: 0.85rem; color: #666; }
   .footer-contact a { color: #888; text-decoration: none; transition: color 0.2s; }
   .footer-contact a:hover { color: var(--white); }
@@ -935,7 +935,7 @@
 
   <section>
     <h2>¿Cuánto cuesta SecretarIA?</h2>
-    <p>SecretarIA tiene tres planes sin contrato: Plan Starter a 99 dólares por mes para negocios pequeños con un canal y hasta 50 leads mensuales. Plan Esencial a 399 dólares por mes con leads ilimitados, tres canales simultáneos (WhatsApp, Facebook, web) e inventario en tiempo real. Plan BDC Completo a 999 dólares por mes que combina el agente de IA con un equipo humano que opera el BDC completo, incluye gerente de cuenta dedicado y reportes semanales de conversión. Todos los planes incluyen garantía de 30 días.</p>
+    <p>SecretarIA tiene tres niveles sin contrato. Arranca a 100 dólares por mes o 1,000 dólares por año incluye landing con bot que captura y agenda, recordatorios Twilio y seguimiento automatizado. Escala a 1,000 dólares por mes o 10,000 dólares por año incluye todo Arranca más bot con Claude API pensante, manejo de inventario, dominio propio y G-Suite. Transforma desde 100,000 dólares negociable incluye entrenamiento IA para toda la empresa, automatización de labor humana y API personalizada.</p>
   </section>
 
   <section>
@@ -1091,7 +1091,7 @@
       ¿Cuánto cuesta SecretarIA para dealers en Puerto Rico?
       <div class="faq-toggle">+</div>
     </div>
-    <div class="faq-a">SecretarIA tiene tres planes sin contrato: Plan Starter a $99/mes (1 canal, hasta 50 leads), Plan Esencial a $399/mes (canales ilimitados, inventario en vivo, leads ilimitados) y Plan BDC Completo a $999/mes (IA más equipo humano, gerente de cuenta, reportes semanales). Todos con garantía de 30 días — si no ves más citas, no pagas el segundo mes.</div>
+    <div class="faq-a">SecretarIA tiene tres niveles sin contrato. Arranca: $100/mes o $1,000/año — landing con bot que captura y agenda, recordatorios Twilio y seguimiento automático. Escala: $1,000/mes o $10,000/año — todo Arranca más bot con Claude API, manejo de inventario, dominio propio y G-Suite. Transforma: desde $100,000 negociable — entrenamiento IA para toda la empresa, automatización de labor humana y API personalizada. Garantía de 30 días en Arranca y Escala.</div>
   </div>
 
   <div class="faq-item">
@@ -1124,6 +1124,81 @@
       <div class="faq-toggle">+</div>
     </div>
     <div class="faq-a">Sí. Cancelas cuando quieras, sin penalidad. No hay contratos de 12 meses ni letra pequeña. Si en 30 días no ves resultados, hablamos — y si no resolvemos, no pagas.</div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="flow-section" id="pricing" style="background:#080808;">
+  <div class="flow-inner">
+    <p class="section-label">Inversión</p>
+    <h2 style="font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-0.03em;line-height:1.1;margin-bottom:8px;">Simple. Sin trampa.</h2>
+    <p style="color:#888;font-weight:300;font-size:1rem;margin-top:8px;margin-bottom:48px;">Setup único $1,000 en Arranca y Escala. Luego mensual o anual.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+
+      <!-- ARRANCA -->
+      <div style="background:#111;border:1px solid #1e1e1e;border-radius:16px;padding:36px 28px;position:relative;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#e8192c'" onmouseout="this.style.borderColor='#1e1e1e'">
+        <p style="font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:#555;margin-bottom:16px;">Tier 1</p>
+        <h3 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:-0.02em;margin-bottom:8px;">Arranca</h3>
+        <div style="margin:20px 0;">
+          <span style="font-size:2.8rem;font-weight:700;font-family:'Syne',sans-serif;color:#e8192c;">$100</span>
+          <span style="color:#555;font-size:1rem;">/mes</span>
+          <div style="font-size:1rem;color:#444;margin-top:4px;">o $1,000/año — ahorras $200</div>
+        </div>
+        <div style="border-top:1px solid #1a1a1a;padding-top:20px;margin-bottom:24px;">
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Landing de servicio</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Bot que captura y agenda</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Recordatorios Twilio</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Seguimiento automático</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Setup incluido ($1,000 única vez)</div>
+          <div style="font-size:1rem;color:#444;margin-bottom:10px;line-height:1.5;">✓ Garantía 30 días</div>
+        </div>
+        <a href="#demo-call" style="display:block;text-align:center;background:transparent;border:1px solid #e8192c;color:#e8192c;padding:14px;border-radius:100px;font-weight:600;font-size:1rem;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='#e8192c';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#e8192c'">Empezar →</a>
+      </div>
+
+      <!-- ESCALA -->
+      <div style="background:#111;border:1px solid #e8192c;border-radius:16px;padding:36px 28px;position:relative;box-shadow:0 0 40px rgba(232,25,44,0.1);">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#e8192c;color:white;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;padding:4px 14px;border-radius:100px;text-transform:uppercase;white-space:nowrap;">Más popular</div>
+        <p style="font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:#555;margin-bottom:16px;">Tier 2</p>
+        <h3 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:-0.02em;margin-bottom:8px;">Escala</h3>
+        <div style="margin:20px 0;">
+          <span style="font-size:2.8rem;font-weight:700;font-family:'Syne',sans-serif;color:#e8192c;">$1,000</span>
+          <span style="color:#555;font-size:1rem;">/mes</span>
+          <div style="font-size:1rem;color:#444;margin-top:4px;">o $10,000/año — ahorras $2,000</div>
+        </div>
+        <div style="border-top:1px solid #1a1a1a;padding-top:20px;margin-bottom:24px;">
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Todo Arranca incluido</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Bot Claude API — piensa como humano</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Manejo de inventario en vivo</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Dominio propio</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ G-Suite + redes sociales</div>
+          <div style="font-size:1rem;color:#444;margin-bottom:10px;line-height:1.5;">✓ Setup incluido ($1,000 única vez)</div>
+          <div style="font-size:1rem;color:#444;margin-bottom:10px;line-height:1.5;">✓ Garantía 30 días</div>
+        </div>
+        <a href="#demo-call" style="display:block;text-align:center;background:#e8192c;color:white;padding:14px;border-radius:100px;font-weight:600;font-size:1rem;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='#ff3c4e'" onmouseout="this.style.background='#e8192c'">Quiero esta →</a>
+      </div>
+
+      <!-- TRANSFORMA -->
+      <div style="background:#111;border:1px solid #1e1e1e;border-radius:16px;padding:36px 28px;position:relative;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#e8192c'" onmouseout="this.style.borderColor='#1e1e1e'">
+        <p style="font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:#555;margin-bottom:16px;">Tier 3</p>
+        <h3 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:-0.02em;margin-bottom:8px;">Transforma</h3>
+        <div style="margin:20px 0;">
+          <span style="font-size:2.8rem;font-weight:700;font-family:'Syne',sans-serif;color:#e8192c;">$100K</span>
+          <span style="color:#555;font-size:1rem;"> negociable</span>
+          <div style="font-size:1rem;color:#444;margin-top:4px;">Pago flexible — cripto, activos, equity</div>
+        </div>
+        <div style="border-top:1px solid #1a1a1a;padding-top:20px;margin-bottom:24px;">
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Todo Escala incluido</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Entrenamiento IA toda la empresa</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Automatización de labor humana</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ API personalizada por compañía</div>
+          <div style="font-size:1rem;color:#666;margin-bottom:10px;line-height:1.5;">✓ Contrato legal incluido</div>
+          <div style="font-size:1rem;color:#444;margin-bottom:10px;line-height:1.5;">✓ SLA dedicado</div>
+        </div>
+        <a href="#demo-call" style="display:block;text-align:center;background:transparent;border:1px solid #333;color:#888;padding:14px;border-radius:100px;font-weight:600;font-size:1rem;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='#e8192c';this.style.color='#e8192c'" onmouseout="this.style.borderColor='#333';this.style.color='#888'">Conversemos →</a>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1223,12 +1298,37 @@ function toggleChat() {
   document.getElementById('chat-toggle').textContent = chatOpen ? '✕' : '💬';
 }
 
-const ARIA_RESPONSES = {
-  'Tengo un dealer': 'Perfecto. Los dealers que usan SecretarIA capturan leads los 7 días — incluyendo fines de semana cuando el showroom está cerrado. ¿Cuántos leads estás perdiendo por no contestar rápido?',
-  'Tengo una barbería': '¡Excelente! Para barberías tenemos agenda automática donde el cliente reserva sin llamar. ¿Cuántas citas pierdes a la semana por no contestar a tiempo?',
-  '¿Cuánto cuesta?': 'Desde $99/mes. Una sola cita cerrada lo paga. Pero antes de hablar de precio — ¿qué tipo de negocio tienes? Así te digo exactamente qué plan tiene sentido.',
-  'default': 'Para darte la respuesta correcta, agenda un demo de 20 minutos — te muestro el sistema en vivo con datos de tu negocio. ¿Te funciona esta semana?'
-};
+// ── ARIA — Claude API (proxy via AppScript) ──
+const ARIA_SYSTEM = `Eres ARIA, el agente de ventas de SecretarIA.
+
+IDENTIDAD:
+- Eres ARIA. Nunca menciones a Wilfredo ni que hay un humano detrás.
+- Representas a SecretarIA, que vende DealerAmigo — un BDC virtual con IA para dealers en Puerto Rico.
+- Eres directa, warm, profesional. Sin relleno. Sin loops.
+
+PRODUCTO — DealerAmigo:
+Agente IA que responde leads en menos de 30 segundos, califica clientes, conecta con inventario real y agenda citas. Opera 24/7 incluyendo domingos y feriados.
+
+PRECIOS (siempre menciona setup + mensual):
+- ARRANCA: $1,000 setup único + $100/mes (o $1,000/año). Landing con bot que captura y agenda, recordatorios Twilio, seguimiento automático.
+- ESCALA: $1,000 setup único + $1,000/mes (o $10,000/año). Todo Arranca más bot Claude API (piensa como humano), inventario en vivo, dominio propio, G-Suite.
+- TRANSFORMA: $100,000 negociable. Entrenamiento IA para toda la empresa, automatización de labor humana, API personalizada. Pago flexible: cripto, activos, equity.
+
+OBJETIVO:
+1. Entender qué tipo de negocio tiene el usuario
+2. Calificar (¿tiene leads? ¿cuántos? ¿los sigue?)
+3. Presentar el tier correcto
+4. Moverlo a agendar demo de 20 minutos
+
+REGLAS CRÍTICAS:
+- Máximo 2-3 oraciones por respuesta
+- Siempre termina con UNA pregunta para avanzar
+- Nunca repitas la misma respuesta dos veces
+- Si ya preguntaste algo, usa la respuesta para avanzar
+- Un lead de dealer vale $5,000-15,000 en comisión — úsalo para justificar precio
+- Acepta inglés o español según el usuario`;
+
+let ariaHistory = [];
 
 function addMsg(text, type) {
   const msgs = document.getElementById('cw-messages');
@@ -1253,11 +1353,41 @@ function removeTyping() {
   if (t) t.remove();
 }
 
-function respond(userMsg) {
+async function callARIA(userMsg) {
+  ariaHistory.push({ role: 'user', content: userMsg });
+
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbza0ygP_kEAc5uHQGSe3mCNclsl2Qn0IrVBiTBE11_MLXoRjMuMzS4YJqHor1cXLE58dA/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        type: 'aria_chat',
+        system: ARIA_SYSTEM,
+        messages: ariaHistory
+      })
+    });
+
+    const data = await response.json();
+    const reply = data.reply || 'Un momento — ¿puedes contarme más sobre tu negocio?';
+    ariaHistory.push({ role: 'assistant', content: reply });
+    return reply;
+  } catch(e) {
+    // Fallback si falla la API
+    const fallbacks = [
+      '¿Qué tipo de negocio tienes? Así te digo exactamente cómo te ayudamos.',
+      'Interesante. ¿Cuántos leads recibes por mes aproximadamente?',
+      'Perfecto. ¿Tienes 20 minutos esta semana para una demo en vivo?'
+    ];
+    return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+  }
+}
+
+async function respond(userMsg) {
   document.getElementById('cw-chips').style.display = 'none';
   showTyping();
-  const reply = ARIA_RESPONSES[userMsg] || ARIA_RESPONSES['default'];
-  setTimeout(() => { removeTyping(); addMsg(reply, 'bot'); }, 1200);
+  const reply = await callARIA(userMsg);
+  removeTyping();
+  addMsg(reply, 'bot');
 }
 
 function sendChip(text) { addMsg(text, 'user'); respond(text); }
@@ -1369,12 +1499,12 @@ document.querySelectorAll('.flow-step, .faq-item, .demo-frame').forEach(el => {
   #ei-close {
     position: absolute;
     top: 12px; right: 12px;
-    width: 40px; height: 40px;
-    background: #2a2a2a;
-    border: 1px solid #444;
+    width: 44px; height: 44px;
+    background: #e8192c;
+    border: none;
     border-radius: 50%;
-    color: #ccc;
-    font-size: 1.2rem;
+    color: white;
+    font-size: 1.3rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1382,8 +1512,10 @@ document.querySelectorAll('.flow-step, .faq-item, .demo-frame').forEach(el => {
     transition: all 0.2s;
     z-index: 10;
     line-height: 1;
-    font-weight: bold;
+    font-weight: 900;
+    box-shadow: 0 2px 12px rgba(232,25,44,0.4);
   }
+  #ei-close:hover { background: #ff3c4e; transform: scale(1.1); }
 
   #ei-close:hover { background: #222; color: var(--white); }
 
