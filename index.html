@@ -20,7 +20,7 @@
     "@type": ["SoftwareApplication", "Service"],
     "name": "SecretarIA",
     "alternateName": ["DealerAmigo", "Secretar.ia", "ARIA"],
-    "url": "https://secretar.ia",
+    "url": "https://usadealeramigo.com",
     "description": "SecretarIA es un sistema de automatización de ventas con inteligencia artificial para dealers y negocios en Puerto Rico. Actúa como un BDC virtual que responde leads en menos de 30 segundos, califica clientes automáticamente según presupuesto e interés, conecta con inventario en tiempo real y agenda citas directamente en Google Calendar sin intervención humana. Opera 24 horas al día, 7 días a la semana.",
     "applicationCategory": "BusinessApplication",
     "applicationSubCategory": "Sales Automation",
@@ -184,7 +184,7 @@
     "@type": "Organization",
     "name": "SecretarIA",
     "alternateName": "DealerAmigo",
-    "url": "https://secretar.ia",
+    "url": "https://usadealeramigo.com",
     "telephone": "+17875301101",
     "description": "SecretarIA es la empresa detrás de DealerAmigo, el BDC virtual con inteligencia artificial para dealers y negocios en Puerto Rico.",
     "areaServed": "Puerto Rico",
@@ -1357,7 +1357,7 @@ async function callARIA(userMsg) {
   ariaHistory.push({ role: 'user', content: userMsg });
 
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbza0ygP_kEAc5uHQGSe3mCNclsl2Qn0IrVBiTBE11_MLXoRjMuMzS4YJqHor1cXLE58dA/exec', {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwLKTbkI9cHy-SWACXndxtL_9yOH8G025ARIMUrOMVRxx2r7VxaDpy_sVIqA7Az12P4mw/exec', {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({
@@ -1422,7 +1422,7 @@ async function submitLead(e) {
   btn.disabled = true;
 
   // REEMPLAZA CON TU URL DE APPS SCRIPT
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbza0ygP_kEAc5uHQGSe3mCNclsl2Qn0IrVBiTBE11_MLXoRjMuMzS4YJqHor1cXLE58dA/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwLKTbkI9cHy-SWACXndxtL_9yOH8G025ARIMUrOMVRxx2r7VxaDpy_sVIqA7Az12P4mw/exec';
 
   try {
     await fetch(SHEET_URL, {
@@ -1898,7 +1898,7 @@ async function submitExitIntent(e) {
   btn.disabled = true;
 
   // MISMA URL QUE EL FORM PRINCIPAL
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbza0ygP_kEAc5uHQGSe3mCNclsl2Qn0IrVBiTBE11_MLXoRjMuMzS4YJqHor1cXLE58dA/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwLKTbkI9cHy-SWACXndxtL_9yOH8G025ARIMUrOMVRxx2r7VxaDpy_sVIqA7Az12P4mw/exec';
 
   try {
     await fetch(SHEET_URL, {
