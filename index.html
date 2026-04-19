@@ -1137,7 +1137,7 @@
     <form class="lead-form" onsubmit="submitLead(event)">
       <div class="form-row">
         <input class="form-input" type="text" name="nombre" placeholder="Tu nombre" required>
-        <input class="form-input" type="tel" name="telefono" placeholder="787-000-0000" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Formato: 787-000-0000" required>
+        <input class="form-input" type="tel" name="telefono" placeholder="Tu teléfono" required>
       </div>
       <select class="form-input" name="tipo_negocio" required>
         <option value="" disabled selected>Tipo de negocio</option>
@@ -1277,14 +1277,7 @@ async function submitLead(e) {
   const btn = document.getElementById('submit-btn');
   const form = e.target;
 
-  // Validar teléfono formato 787-XXX-XXXX
-  const tel = form.telefono.value;
-  const telRegex = /^\d{3}-\d{3}-\d{4}$/;
-  if (!telRegex.test(tel)) {
-    form.telefono.style.borderColor = '#e8192c';
-    form.telefono.placeholder = 'Formato: 787-000-0000';
-    return;
-  }
+  const tel = form.telefono.value.trim();
 
   const data = {
     nombre: form.nombre.value.trim(),
@@ -1375,20 +1368,21 @@ document.querySelectorAll('.flow-step, .faq-item, .demo-frame').forEach(el => {
 
   #ei-close {
     position: absolute;
-    top: 16px; right: 16px;
-    width: 32px; height: 32px;
-    background: #1a1a1a;
-    border: 1px solid #2a2a2a;
+    top: 12px; right: 12px;
+    width: 40px; height: 40px;
+    background: #2a2a2a;
+    border: 1px solid #444;
     border-radius: 50%;
-    color: #888;
-    font-size: 1rem;
+    color: #ccc;
+    font-size: 1.2rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
-    z-index: 1;
+    z-index: 10;
     line-height: 1;
+    font-weight: bold;
   }
 
   #ei-close:hover { background: #222; color: var(--white); }
@@ -1568,8 +1562,8 @@ document.querySelectorAll('.flow-step, .faq-item, .demo-frame').forEach(el => {
   .ei-skip {
     display: block;
     text-align: center;
-    font-size: 0.75rem;
-    color: #333;
+    font-size: 0.82rem;
+    color: #666;
     cursor: pointer;
     margin-top: 14px;
     transition: color 0.2s;
@@ -1577,9 +1571,10 @@ document.querySelectorAll('.flow-step, .faq-item, .demo-frame').forEach(el => {
     border: none;
     width: 100%;
     font-family: 'DM Sans', sans-serif;
+    text-decoration: underline;
   }
 
-  .ei-skip:hover { color: #555; }
+  .ei-skip:hover { color: #999; }
 
   /* Success state */
   .ei-success {
@@ -1664,7 +1659,7 @@ document.querySelectorAll('.flow-step, .faq-item, .demo-frame').forEach(el => {
         <form class="ei-form" onsubmit="submitExitIntent(event)">
           <div class="ei-row">
             <input class="ei-input" type="text" name="ei_nombre" placeholder="Tu nombre" required>
-            <input class="ei-input" type="tel" name="ei_telefono" placeholder="787-000-0000" required>
+            <input class="ei-input" type="tel" name="ei_telefono" placeholder="Tu teléfono (opcional)">
           </div>
           <input class="ei-input" type="email" name="ei_email" placeholder="Tu email" required>
           <button type="submit" class="ei-submit" id="ei-submit-btn">
@@ -1725,7 +1720,7 @@ window.addEventListener('scroll', () => {
 // Fallback: mostrar después de 45 segundos si no ha interactuado
 setTimeout(() => {
   if (!eiShown && !eiDismissed) showExitIntent();
-}, 45000);
+}, 60000);
 
 function showExitIntent() {
   eiShown = true;
@@ -1755,16 +1750,7 @@ async function submitExitIntent(e) {
   const form = e.target;
   const btn = document.getElementById('ei-submit-btn');
 
-  // Validar teléfono
   const tel = form.ei_telefono.value.trim();
-  const telRegex = /^\d{3}-\d{3}-\d{4}$/;
-  if (!telRegex.test(tel)) {
-    form.ei_telefono.style.borderColor = '#e8192c';
-    form.ei_telefono.placeholder = 'Formato: 787-000-0000';
-    form.ei_telefono.value = '';
-    form.ei_telefono.focus();
-    return;
-  }
 
   const data = {
     nombre: form.ei_nombre.value.trim(),
