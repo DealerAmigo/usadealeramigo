@@ -4,1300 +4,344 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DealerAmigo — Convierte tu publicidad en ventas reales</title>
-<meta name="description" content="DealerAmigo es un BDC virtual con inteligencia artificial para dealers y negocios en Puerto Rico. Responde leads en menos de 30 segundos, califica clientes automáticamente y agenda citas en Google Calendar sin intervención humana. Opera 24/7.">
-
-<meta property="og:title" content="DealerAmigo — BDC virtual con IA para Puerto Rico">
-<meta property="og:description" content="Agente de ventas con IA que captura leads, califica clientes y agenda citas automáticamente. Funciona 24/7 para dealers y negocios en Puerto Rico.">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="es_PR">
-
-<script type="application/ld+json">
-[
-  {
-    "@context": "https://schema.org",
-    "@type": ["SoftwareApplication", "Service"],
-    "name": "DealerAmigo",
-    "alternateName": ["SecretarIA", "ARIA"],
-    "url": "https://usadealeramigo.com",
-    "description": "DealerAmigo es un BDC virtual con inteligencia artificial para dealers y negocios en Puerto Rico. Responde leads en menos de 30 segundos, califica clientes automáticamente, conecta con inventario en tiempo real y agenda citas directamente en Google Calendar sin intervención humana. Opera 24/7.",
-    "applicationCategory": "BusinessApplication",
-    "applicationSubCategory": "Sales Automation",
-    "provider": {
-      "@type": "Organization",
-      "name": "SecretarIA",
-      "telephone": "+17875301101",
-      "areaServed": "Puerto Rico"
-    },
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Arranca",
-        "price": "100",
-        "priceCurrency": "USD",
-        "description": "Landing con bot que captura y agenda, recordatorios Twilio, seguimiento automático. Setup $1,000 única vez."
-      },
-      {
-        "@type": "Offer",
-        "name": "Escala",
-        "price": "1000",
-        "priceCurrency": "USD",
-        "description": "Todo Arranca más bot Claude API, manejo de inventario, dominio propio, G-Suite. Setup $1,000 única vez."
-      },
-      {
-        "@type": "Offer",
-        "name": "Transforma",
-        "description": "Entrenamiento IA para toda la empresa, automatización de labor humana, API personalizada. Negociable."
-      }
-    ]
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "¿Qué es DealerAmigo?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "DealerAmigo es un BDC virtual con inteligencia artificial para dealers y negocios en Puerto Rico. Responde leads en menos de 30 segundos, califica prospectos, conecta con inventario en tiempo real y agenda citas en Google Calendar — sin intervención humana, 24/7."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Cuánto cuesta DealerAmigo?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "DealerAmigo tiene tres planes. Arranca: $1,000 setup + $100/mes (o $1,000/año). Escala: $1,000 setup + $1,000/mes (o $10,000/año). Transforma: precio negociable. Garantía 30 días en Arranca y Escala."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿En cuánto tiempo está listo?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Entre 3 y 5 días hábiles. Setup completo incluido. No necesitas saber de tecnología."
-        }
-      }
-    ]
-  }
-]
-</script>
-
+<meta name="description" content="DealerAmigo es un BDC virtual con inteligencia artificial para dealers y negocios en Puerto Rico.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-
 <style>
-  :root {
-    --black: #0a0a0a;
-    --white: #f5f3ee;
-    --red: #e8192c;
-    --red-dark: #b5121f;
-    --gray: #1a1a1a;
-    --gray-mid: #2a2a2a;
-    --gray-light: #888;
-    --accent: #ff3c4e;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 18px;
-    line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.025;
-    pointer-events: none;
-    z-index: 1000;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 20px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
-  }
-
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.2rem;
-    letter-spacing: -0.02em;
-    color: var(--white);
-    text-decoration: none;
-  }
-
-  .nav-logo span { color: var(--red); }
-
-  .nav-cta {
-    background: var(--red);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    font-size: 0.85rem;
-    padding: 10px 22px;
-    border-radius: 100px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 120px 32px 80px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    top: -200px; right: -200px;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(232,25,44,0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.1s;
-  }
-
-  .hero h1 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(2.4rem, 8vw, 5.5rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    max-width: 900px;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.2s;
-  }
-
-  .hero h1 em { font-style: normal; color: var(--red); }
-
-  .hero-sub {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    font-weight: 300;
-    color: #aaa;
-    max-width: 560px;
-    margin-top: 28px;
-    line-height: 1.6;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.35s;
-  }
-
-  .hero-sub strong { color: var(--white); font-weight: 500; }
-
-  .hero-actions {
-    margin-top: 48px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    align-items: center;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.5s;
-  }
-
-  .btn-primary {
-    background: var(--red);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 16px 36px;
-    border-radius: 100px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.2s;
-  }
-
-  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(232,25,44,0.35); }
-
-  .btn-ghost {
-    color: var(--gray-light);
-    font-size: 0.9rem;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: color 0.2s;
-  }
-
-  .btn-ghost:hover { color: var(--white); }
-
-  /* PROOF STRIP */
-  .proof-strip {
-    border-top: 1px solid #1e1e1e;
-    border-bottom: 1px solid #1e1e1e;
-    padding: 24px 32px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    justify-content: center;
-    background: #0d0d0d;
-  }
-
-  .proof-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-    color: #888;
-  }
-
-  .proof-item strong { color: var(--white); font-weight: 600; }
-  .proof-dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; flex-shrink: 0; }
-
-  /* SECTIONS */
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 16px;
-  }
-
-  /* DEMO */
-  .demo-section {
-    padding: 100px 32px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .demo-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 16px;
-  }
-
-  .demo-section > p { color: #888; max-width: 520px; font-weight: 300; margin-bottom: 48px; }
-
-  .demo-frame {
-    background: var(--gray);
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid #222;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-    max-width: 380px;
-    margin: 0 auto;
-  }
-
-  .demo-header {
-    background: var(--black);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid #1e1e1e;
-  }
-
-  .demo-avatar {
-    width: 40px; height: 40px;
-    background: var(--red);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 0.85rem;
-    flex-shrink: 0;
-  }
-
-  .demo-header-text { flex: 1; min-width: 0; }
-  .demo-header-name { font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .demo-header-status { font-size: 0.72rem; color: #4caf50; display: flex; align-items: center; gap: 4px; }
-  .demo-status-dot { width: 5px; height: 5px; background: #4caf50; border-radius: 50%; flex-shrink: 0; animation: pulse 2s infinite; }
-
-  .demo-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
-
-  .msg-bot, .msg-user {
-    max-width: 85%;
-    padding: 12px 14px;
-    border-radius: 14px;
-    font-size: 0.88rem;
-    line-height: 1.5;
-    word-break: break-word;
-  }
-
-  .msg-bot { background: #1e1e1e; color: var(--white); align-self: flex-start; border-bottom-left-radius: 4px; }
-  .msg-user { background: var(--red); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
-
-  .vehicle-card {
-    background: #111;
-    border: 1px solid #2a2a2a;
-    border-radius: 12px;
-    overflow: hidden;
-    max-width: 85%;
-    align-self: flex-start;
-  }
-
-  .vehicle-card-img {
-    width: 100%;
-    height: 120px;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-  }
-
-  .vehicle-card-info { padding: 10px 12px; }
-  .vehicle-card-name { font-weight: 600; font-size: 0.88rem; }
-  .vehicle-card-price { color: var(--red); font-weight: 700; font-size: 0.95rem; margin: 2px 0; }
-  .vehicle-card-details { font-size: 0.72rem; color: #888; }
-
-  .demo-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 20px; }
-
-  .chip {
-    background: transparent;
-    border: 1px solid #333;
-    color: var(--white);
-    padding: 7px 14px;
-    border-radius: 100px;
-    font-size: 0.78rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-
-  .chip:hover { border-color: var(--red); color: var(--red); }
-
-  /* FLOW */
-  .flow-section {
-    padding: 100px 32px;
-    background: #0d0d0d;
-    border-top: 1px solid #1a1a1a;
-  }
-
-  .flow-inner { max-width: 1100px; margin: 0 auto; }
-
-  .flow-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-
-  .flow-section > .flow-inner > p {
-    color: #888;
-    font-weight: 300;
-    font-size: 0.95rem;
-    margin-top: 8px;
-  }
-
-  .flow-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2px;
-    margin-top: 56px;
-  }
-
-  .flow-step {
-    background: var(--gray);
-    padding: 36px 28px;
-    transition: background 0.2s;
-    overflow: hidden;
-  }
-
-  .flow-step:hover { background: #1e1e1e; }
-  .flow-step:first-child { border-radius: 16px 0 0 16px; }
-  .flow-step:last-child { border-radius: 0 16px 16px 0; }
-
-  .flow-num {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 3rem;
-    color: #1e1e1e;
-    line-height: 1;
-    margin-bottom: 20px;
-  }
-
-  .flow-icon { font-size: 1.8rem; margin-bottom: 16px; display: block; }
-
-  .flow-step h3 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 8px;
-  }
-
-  .flow-step p { font-size: 0.95rem; color: #777; line-height: 1.5; font-weight: 300; }
-
-  /* FAQ */
-  .faq-section {
-    padding: 100px 32px;
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .faq-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 48px;
-  }
-
-  .faq-item { border-bottom: 1px solid #1a1a1a; padding: 28px 0; }
-
-  .faq-q {
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: -0.01em;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .faq-toggle {
-    width: 24px; height: 24px;
-    border: 1px solid #333;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 1rem;
-    color: var(--red);
-    transition: transform 0.3s;
-    margin-top: 2px;
-  }
-
-  .faq-a {
-    font-size: 0.95rem;
-    color: #888;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s;
-    font-weight: 300;
-    line-height: 1.7;
-  }
-
-  .faq-item.open .faq-a { max-height: 300px; padding-top: 16px; }
-  .faq-item.open .faq-toggle { transform: rotate(45deg); }
-
-  /* PRICING */
-  .pricing-section {
-    padding: 100px 32px;
-    background: #080808;
-    border-top: 1px solid #1a1a1a;
-  }
-
-  .pricing-inner { max-width: 1100px; margin: 0 auto; }
-
-  .pricing-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-
-  .pricing-setup-note {
-    color: #888;
-    font-weight: 300;
-    font-size: 0.95rem;
-    margin-top: 8px;
-    margin-bottom: 48px;
-  }
-
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-
-  .plan-card {
-    background: #111;
-    border: 1px solid #1e1e1e;
-    border-radius: 16px;
-    padding: 36px 28px;
-    position: relative;
-    transition: border-color 0.2s;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .plan-card:hover { border-color: var(--red); }
-  .plan-card.featured { border-color: var(--red); box-shadow: 0 0 40px rgba(232,25,44,0.1); }
-
-  .plan-badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--red);
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    padding: 4px 14px;
-    border-radius: 100px;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .plan-tier {
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #555;
-    margin-bottom: 16px;
-  }
-
-  .plan-name {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.6rem;
-    letter-spacing: -0.02em;
-    margin-bottom: 20px;
-  }
-
-  .plan-price-block { margin-bottom: 24px; }
-
-  .plan-price {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 2.8rem;
-    color: var(--red);
-    line-height: 1;
-  }
-
-  .plan-period { color: #555; font-size: 1rem; margin-left: 4px; }
-
-  .plan-annual {
-    font-size: 0.88rem;
-    color: #444;
-    margin-top: 6px;
-  }
-
-  .plan-setup {
-    font-size: 0.85rem;
-    color: #555;
-    margin-top: 4px;
-  }
-
-  .plan-features {
-    border-top: 1px solid #1a1a1a;
-    padding-top: 20px;
-    margin-bottom: 28px;
-    flex: 1;
-  }
-
-  .plan-feature {
-    font-size: 0.95rem;
-    color: #666;
-    margin-bottom: 10px;
-    line-height: 1.5;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .plan-feature span { flex: 1; }
-
-  .plan-cta {
-    display: block;
-    text-align: center;
-    padding: 14px;
-    border-radius: 100px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
-    border: none;
-  }
-
-  .plan-cta.outline {
-    background: transparent;
-    border: 1px solid var(--red);
-    color: var(--red);
-  }
-
-  .plan-cta.outline:hover { background: var(--red); color: white; }
-
-  .plan-cta.solid {
-    background: var(--red);
-    color: white;
-  }
-
-  .plan-cta.solid:hover { background: var(--accent); transform: translateY(-1px); }
-
-  .plan-cta.muted {
-    background: transparent;
-    border: 1px solid #333;
-    color: #888;
-  }
-
-  .plan-cta.muted:hover { border-color: var(--red); color: var(--red); }
-
-  /* FORM */
-  .form-section {
-    padding: 100px 32px;
-    background: #0d0d0d;
-    border-top: 1px solid #1a1a1a;
-  }
-
-  .form-inner { max-width: 560px; margin: 0 auto; text-align: center; }
-
-  .form-inner h2 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 12px;
-  }
-
-  .form-inner > p { color: #888; font-size: 0.95rem; font-weight: 300; margin-bottom: 40px; }
-  .form-inner > p strong { color: var(--white); font-weight: 500; }
-
-  .lead-form { display: flex; flex-direction: column; gap: 12px; }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .form-input {
-    background: #111;
-    border: 1px solid #222;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    padding: 16px 20px;
-    border-radius: 12px;
-    width: 100%;
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-
-  .form-input::placeholder { color: #555; }
-  .form-input:focus { border-color: var(--red); }
-  select.form-input { cursor: pointer; }
-
-  .form-submit {
-    background: var(--red);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 18px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 4px;
-    transition: all 0.2s;
-  }
-
-  .form-submit:hover { background: var(--accent); transform: translateY(-1px); }
-  .form-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-  .form-note { font-size: 0.75rem; color: #555; text-align: center; margin-top: 8px; }
-
-  /* CHAT WIDGET */
-  #chat-bubble { position: fixed; bottom: 28px; right: 28px; z-index: 999; }
-
-  #chat-toggle {
-    width: 60px; height: 60px;
-    background: var(--red);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 24px rgba(232,25,44,0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
-    font-size: 1.5rem;
-  }
-
-  #chat-toggle:hover { transform: scale(1.08); }
-
-  #chat-window {
-    position: absolute;
-    bottom: 76px; right: 0;
-    width: 340px;
-    max-height: 520px;
-    background: var(--black);
-    border: 1px solid #222;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  #chat-window.open { display: flex; animation: slideUp 0.3s ease; }
-
-  .cw-header {
-    padding: 16px 18px;
-    background: var(--gray);
-    border-bottom: 1px solid #1e1e1e;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-
-  .cw-avatar {
-    width: 36px; height: 36px;
-    background: var(--red);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 0.75rem;
-    flex-shrink: 0;
-  }
-
-  .cw-name { font-weight: 600; font-size: 0.88rem; }
-  .cw-status { font-size: 0.7rem; color: #4caf50; }
-
-  .cw-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .cw-messages::-webkit-scrollbar { width: 4px; }
-  .cw-messages::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
-
-  .cw-msg-bot, .cw-msg-user {
-    padding: 10px 13px;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    max-width: 88%;
-    word-break: break-word;
-  }
-
-  .cw-msg-bot { background: #1a1a1a; align-self: flex-start; border-bottom-left-radius: 3px; }
-  .cw-msg-user { background: var(--red); align-self: flex-end; border-bottom-right-radius: 3px; }
-
-  .cw-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; flex-shrink: 0; }
-
-  .cw-chip {
-    background: transparent;
-    border: 1px solid #2a2a2a;
-    color: #ccc;
-    padding: 6px 12px;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.2s;
-  }
-
-  .cw-chip:hover { border-color: var(--red); color: var(--white); }
-
-  .cw-input-row {
-    display: flex;
-    gap: 8px;
-    padding: 12px 16px;
-    border-top: 1px solid #1a1a1a;
-    flex-shrink: 0;
-  }
-
-  .cw-input {
-    flex: 1;
-    background: #111;
-    border: 1px solid #222;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    padding: 10px 14px;
-    border-radius: 100px;
-    outline: none;
-    transition: border-color 0.2s;
-    min-width: 0;
-  }
-
-  .cw-input:focus { border-color: var(--red); }
-  .cw-input::placeholder { color: #444; }
-
-  .cw-send {
-    width: 38px; height: 38px;
-    background: var(--red);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.2s;
-    font-size: 0.9rem;
-  }
-
-  .cw-send:hover { background: var(--accent); }
-
-  .typing {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    padding: 10px 14px;
-    background: #1a1a1a;
-    border-radius: 12px;
-    border-bottom-left-radius: 3px;
-    align-self: flex-start;
-  }
-
-  .typing span {
-    width: 6px; height: 6px;
-    background: #555;
-    border-radius: 50%;
-    animation: bounce 1.2s infinite;
-  }
-
-  .typing span:nth-child(2) { animation-delay: 0.2s; }
-  .typing span:nth-child(3) { animation-delay: 0.4s; }
-
-  /* FOOTER */
-  footer { padding: 60px 32px 40px; border-top: 1px solid #1a1a1a; }
-
-  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
-
-  .footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  .footer-brand { max-width: 300px; }
-
-  .footer-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.3rem;
-    letter-spacing: -0.02em;
-    margin-bottom: 10px;
-  }
-
-  .footer-logo span { color: var(--red); }
-  .footer-tagline { font-size: 0.9rem; color: #555; line-height: 1.5; font-weight: 300; }
-  .footer-contact { font-size: 0.85rem; color: #666; }
-  .footer-contact a { color: #888; text-decoration: none; transition: color 0.2s; }
-  .footer-contact a:hover { color: var(--white); }
-  .footer-contact p { margin-bottom: 4px; }
-
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    padding-top: 24px;
-    border-top: 1px solid #111;
-    font-size: 0.75rem;
-    color: #444;
-  }
-
-  .footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
-  .footer-legal a { color: #444; text-decoration: none; transition: color 0.2s; }
-  .footer-legal a:hover { color: #888; }
-  .footer-sig { font-size: 0.72rem; color: #333; }
-  .footer-sig span { color: var(--red); }
-
-  /* AEO hidden layer */
-  .aeo-layer {
-    position: absolute;
-    width: 1px; height: 1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    white-space: nowrap;
-  }
-
-  /* EXIT INTENT */
-  #ei-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.82);
-    z-index: 2000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    backdrop-filter: blur(4px);
-  }
-
-  #ei-overlay.open { display: flex; animation: eiFadeIn 0.25s ease; }
-
-  #ei-box {
-    background: #0f0f0f;
-    border: 1px solid #222;
-    border-radius: 20px;
-    max-width: 520px;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    animation: eiSlideUp 0.3s ease;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-  }
-
-  #ei-close {
-    position: absolute;
-    top: 12px; right: 12px;
-    width: 44px; height: 44px;
-    background: #e8192c;
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 1.3rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    z-index: 10;
-    font-weight: 900;
-    box-shadow: 0 2px 12px rgba(232,25,44,0.4);
-  }
-
-  #ei-close:hover { background: #ff3c4e; transform: scale(1.1); }
-
-  .ei-top {
-    background: linear-gradient(135deg, #1a0a0a 0%, #0f0f0f 100%);
-    border-bottom: 1px solid #1e1e1e;
-    padding: 36px 36px 28px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .ei-top::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(232,25,44,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .ei-tag {
-    display: inline-block;
-    background: rgba(232,25,44,0.15);
-    border: 1px solid rgba(232,25,44,0.3);
-    color: var(--red);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 100px;
-    margin-bottom: 16px;
-  }
-
-  .ei-top h2 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(1.3rem, 4vw, 1.8rem);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 12px;
-    color: var(--white);
-  }
-
-  .ei-top h2 span { color: var(--red); }
-  .ei-top p { font-size: 0.88rem; color: #777; font-weight: 300; line-height: 1.5; }
-
-  .ei-preview {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-top: 20px;
-    background: #111;
-    border: 1px solid #1e1e1e;
-    border-radius: 10px;
-    padding: 12px 16px;
-  }
-
-  .ei-pdf-icon {
-    width: 40px; height: 48px;
-    background: var(--red);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-
-  .ei-preview-name { font-size: 0.85rem; font-weight: 600; color: var(--white); }
-  .ei-preview-meta { font-size: 0.72rem; color: #555; margin-top: 2px; }
-
-  .ei-checkmarks { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
-
-  .ei-check {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 0.8rem;
-    color: #777;
-    font-weight: 300;
-    line-height: 1.4;
-  }
-
-  .ei-check::before { content: '✓'; color: #4caf50; font-weight: 700; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px; }
-
-  .ei-bottom { padding: 28px 36px 32px; }
-
-  .ei-form { display: flex; flex-direction: column; gap: 10px; }
-
-  .ei-input {
-    background: #111;
-    border: 1px solid #222;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    padding: 14px 18px;
-    border-radius: 10px;
-    width: 100%;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .ei-input::placeholder { color: #444; }
-  .ei-input:focus { border-color: var(--red); }
-
-  .ei-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-  .ei-submit {
-    background: var(--red);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 16px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 4px;
-    transition: all 0.2s;
-  }
-
-  .ei-submit:hover { background: var(--accent); }
-
-  .ei-note { font-size: 0.72rem; color: #444; text-align: center; margin-top: 10px; }
-
-  .ei-skip {
-    display: block;
-    text-align: center;
-    font-size: 0.82rem;
-    color: #555;
-    cursor: pointer;
-    margin-top: 14px;
-    background: none;
-    border: none;
-    width: 100%;
-    font-family: 'DM Sans', sans-serif;
-    text-decoration: underline;
-    transition: color 0.2s;
-  }
-
-  .ei-skip:hover { color: #999; }
-
-  .ei-success { padding: 48px 36px; text-align: center; display: none; }
-  .ei-success-icon { font-size: 3rem; margin-bottom: 16px; }
-
-  .ei-success h3 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    letter-spacing: -0.02em;
-    margin-bottom: 10px;
-  }
-
-  .ei-success p { font-size: 0.88rem; color: #666; font-weight: 300; line-height: 1.5; margin-bottom: 24px; }
-
-  .ei-download-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--red);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 14px 28px;
-    border-radius: 100px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .ei-download-btn:hover { background: var(--accent); }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  @keyframes bounce {
-    0%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-6px); }
-  }
-
-  @keyframes eiFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes eiSlideUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 640px) {
-    nav { padding: 16px 20px; }
-    .hero { padding: 100px 20px 60px; }
-    .proof-strip { padding: 20px; gap: 16px; }
-    .demo-section, .faq-section { padding: 72px 20px; }
-    .flow-section, .form-section, .pricing-section { padding: 72px 20px; }
-    .flow-grid { grid-template-columns: 1fr 1fr; }
-    .flow-step:first-child { border-radius: 16px 0 0 0; }
-    .flow-step:last-child { border-radius: 0 0 16px 0; }
-    .form-row { grid-template-columns: 1fr; }
-    footer { padding: 48px 20px 32px; }
-    #chat-window { width: 300px; right: -8px; }
-    .ei-top, .ei-bottom { padding: 24px 20px; }
-    .ei-row { grid-template-columns: 1fr; }
-    .ei-success { padding: 36px 20px; }
-    .pricing-grid { grid-template-columns: 1fr; }
-  }
+:root{--black:#0a0a0a;--white:#f5f3ee;--red:#e8192c;--red-dark:#b5121f;--gray:#1a1a1a;--gray-mid:#2a2a2a;--gray-light:#888;--accent:#ff3c4e}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-size:18px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;z-index:1000}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(10,10,10,.95),transparent)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;letter-spacing:-.02em;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--red)}
+.nav-cta{background:var(--red);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:500;font-size:.85rem;padding:10px 22px;border-radius:100px;border:none;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s}
+.nav-cta:hover{background:var(--accent);transform:translateY(-1px)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 32px 80px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(232,25,44,.12) 0%,transparent 70%);pointer-events:none}
+.hero-label{font-size:.75rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:24px;opacity:0;animation:fadeUp .6s ease forwards .1s}
+.hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,8vw,5.5rem);line-height:1.02;letter-spacing:-.03em;max-width:900px;opacity:0;animation:fadeUp .7s ease forwards .2s}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.25rem);font-weight:300;color:#aaa;max-width:560px;margin-top:28px;line-height:1.6;opacity:0;animation:fadeUp .7s ease forwards .35s}
+.hero-sub strong{color:var(--white);font-weight:500}
+.hero-actions{margin-top:48px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;opacity:0;animation:fadeUp .7s ease forwards .5s}
+.btn-primary{background:var(--red);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:600;font-size:1rem;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .2s}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 32px rgba(232,25,44,.35)}
+.btn-ghost{color:var(--gray-light);font-size:.9rem;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.btn-ghost:hover{color:var(--white)}
+.proof-strip{border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;padding:24px 32px;display:flex;flex-wrap:wrap;gap:32px;justify-content:center;background:#0d0d0d}
+.proof-item{display:flex;align-items:center;gap:10px;font-size:.85rem;color:#888}
+.proof-item strong{color:var(--white);font-weight:600}
+.proof-dot{width:6px;height:6px;background:var(--red);border-radius:50%;flex-shrink:0}
+.section-label{font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.demo-section{padding:100px 32px;max-width:1100px;margin:0 auto}
+.demo-section h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:16px}
+.demo-section>p{color:#888;max-width:520px;font-weight:300;margin-bottom:48px}
+.demo-frame{background:var(--gray);border-radius:20px;overflow:hidden;border:1px solid #222;box-shadow:0 40px 80px rgba(0,0,0,.6);max-width:380px;margin:0 auto}
+.demo-header{background:var(--black);padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1e1e1e}
+.demo-avatar{width:40px;height:40px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.85rem;flex-shrink:0}
+.demo-header-text{flex:1;min-width:0}
+.demo-header-name{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.demo-header-status{font-size:.72rem;color:#4caf50;display:flex;align-items:center;gap:4px}
+.demo-status-dot{width:5px;height:5px;background:#4caf50;border-radius:50%;flex-shrink:0;animation:pulse 2s infinite}
+.demo-body{padding:20px;display:flex;flex-direction:column;gap:12px}
+.msg-bot,.msg-user{max-width:85%;padding:12px 14px;border-radius:14px;font-size:.88rem;line-height:1.5;word-break:break-word}
+.msg-bot{background:#1e1e1e;color:var(--white);align-self:flex-start;border-bottom-left-radius:4px}
+.msg-user{background:var(--red);color:var(--white);align-self:flex-end;border-bottom-right-radius:4px}
+.vehicle-card{background:#111;border:1px solid #2a2a2a;border-radius:12px;overflow:hidden;max-width:85%;align-self:flex-start}
+.vehicle-card-img{width:100%;height:120px;background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.vehicle-card-info{padding:10px 12px}
+.vehicle-card-name{font-weight:600;font-size:.88rem}
+.vehicle-card-price{color:var(--red);font-weight:700;font-size:.95rem;margin:2px 0}
+.vehicle-card-details{font-size:.72rem;color:#888}
+.demo-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px 20px}
+.chip{background:transparent;border:1px solid #333;color:var(--white);padding:7px 14px;border-radius:100px;font-size:.78rem;cursor:pointer;transition:all .2s;white-space:nowrap}
+.chip:hover{border-color:var(--red);color:var(--red)}
+.flow-section{padding:100px 32px;background:#0d0d0d;border-top:1px solid #1a1a1a}
+.flow-inner{max-width:1100px;margin:0 auto}
+.flow-section h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:8px}
+.flow-section>.flow-inner>p{color:#888;font-weight:300;font-size:.95rem;margin-top:8px}
+.flow-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;margin-top:56px}
+.flow-step{background:var(--gray);padding:36px 28px;transition:background .2s;overflow:hidden}
+.flow-step:hover{background:#1e1e1e}
+.flow-step:first-child{border-radius:16px 0 0 16px}
+.flow-step:last-child{border-radius:0 16px 16px 0}
+.flow-num{font-family:'Syne',sans-serif;font-weight:800;font-size:3rem;color:#1e1e1e;line-height:1;margin-bottom:20px}
+.flow-icon{font-size:1.8rem;margin-bottom:16px;display:block}
+.flow-step h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:8px}
+.flow-step p{font-size:.95rem;color:#777;line-height:1.5;font-weight:300}
+.faq-section{padding:100px 32px;max-width:720px;margin:0 auto}
+.faq-section h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.6rem,3.5vw,2.4rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:48px}
+.faq-item{border-bottom:1px solid #1a1a1a;padding:28px 0}
+.faq-q{font-family:'Syne',sans-serif;font-weight:600;font-size:1rem;letter-spacing:-.01em;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.faq-toggle{width:24px;height:24px;border:1px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;color:var(--red);transition:transform .3s;margin-top:2px}
+.faq-a{font-size:.95rem;color:#888;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;font-weight:300;line-height:1.7}
+.faq-item.open .faq-a{max-height:300px;padding-top:16px}
+.faq-item.open .faq-toggle{transform:rotate(45deg)}
+.pricing-section{padding:100px 32px;background:#080808;border-top:1px solid #1a1a1a}
+.pricing-inner{max-width:1100px;margin:0 auto}
+.pricing-section h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:8px}
+.pricing-setup-note{color:#888;font-weight:300;font-size:.95rem;margin-top:8px;margin-bottom:48px}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.plan-card{background:#111;border:1px solid #1e1e1e;border-radius:16px;padding:36px 28px;position:relative;transition:border-color .2s;display:flex;flex-direction:column}
+.plan-card:hover{border-color:var(--red)}
+.plan-card.featured{border-color:var(--red);box-shadow:0 0 40px rgba(232,25,44,.1)}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:4px 14px;border-radius:100px;text-transform:uppercase;white-space:nowrap}
+.plan-tier{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#555;margin-bottom:16px}
+.plan-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:-.02em;margin-bottom:20px}
+.plan-price-block{margin-bottom:24px}
+.plan-price{font-family:'Syne',sans-serif;font-weight:700;font-size:2.8rem;color:var(--red);line-height:1}
+.plan-period{color:#555;font-size:1rem;margin-left:4px}
+.plan-annual{font-size:.88rem;color:#444;margin-top:6px}
+.plan-setup{font-size:.85rem;color:#555;margin-top:4px}
+.plan-features{border-top:1px solid #1a1a1a;padding-top:20px;margin-bottom:28px;flex:1}
+.plan-feature{font-size:.95rem;color:#666;margin-bottom:10px;line-height:1.5;display:flex;align-items:flex-start;gap:8px}
+.plan-feature span{flex:1}
+.plan-cta{display:block;text-align:center;padding:14px;border-radius:100px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:1rem;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
+.plan-cta.outline{background:transparent;border:1px solid var(--red);color:var(--red)}
+.plan-cta.outline:hover{background:var(--red);color:#fff}
+.plan-cta.solid{background:var(--red);color:#fff}
+.plan-cta.solid:hover{background:var(--accent);transform:translateY(-1px)}
+.plan-cta.muted{background:transparent;border:1px solid #333;color:#888}
+.plan-cta.muted:hover{border-color:var(--red);color:var(--red)}
+.form-section{padding:100px 32px;background:#0d0d0d;border-top:1px solid #1a1a1a}
+.form-inner{max-width:560px;margin:0 auto;text-align:center}
+.form-inner h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:12px}
+.form-inner>p{color:#888;font-size:.95rem;font-weight:300;margin-bottom:40px}
+.form-inner>p strong{color:var(--white);font-weight:500}
+.lead-form{display:flex;flex-direction:column;gap:12px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-input{background:#111;border:1px solid #222;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.95rem;padding:16px 20px;border-radius:12px;width:100%;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.form-input::placeholder{color:#555}
+.form-input:focus{border-color:var(--red)}
+select.form-input{cursor:pointer}
+.form-submit{background:var(--red);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:600;font-size:1rem;padding:18px;border-radius:12px;border:none;cursor:pointer;width:100%;margin-top:4px;transition:all .2s}
+.form-submit:hover{background:var(--accent);transform:translateY(-1px)}
+.form-submit:disabled{opacity:.7;cursor:not-allowed;transform:none}
+.form-note{font-size:.75rem;color:#555;text-align:center;margin-top:8px}
+
+/* ══════════════════════════════════════════════
+   CHAT WIDGET — NUEVO DISEÑO
+   Cambios vs versión anterior:
+   1. X grande y etiquetada DENTRO del header
+   2. Texto bot 16px (era 0.85rem≈13.6px)
+   3. Modal ocupa 90vh en móvil (era 520px)
+   4. Banner proactivo a los 6s + auto-open 20s
+══════════════════════════════════════════════ */
+
+/* Backdrop */
+#cw-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.58);backdrop-filter:blur(3px);z-index:998;animation:cwFadeIn .25s ease}
+#cw-backdrop.open{display:block}
+
+/* Lanzador */
+#chat-bubble{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+#cw-proactive{background:var(--red);color:#fff;font-size:14px;font-weight:600;padding:12px 18px;border-radius:18px 18px 4px 18px;max-width:220px;text-align:right;box-shadow:0 4px 20px rgba(232,25,44,.45);cursor:pointer;animation:cwPop .4s cubic-bezier(.22,1,.36,1);line-height:1.4}
+#chat-toggle{width:62px;height:62px;background:var(--red);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(232,25,44,.45);transition:transform .2s;font-size:1.6rem;flex-shrink:0}
+#chat-toggle:hover{transform:scale(1.08)}
+
+/* Ventana — móvil: hoja desde abajo; desktop: card flotante */
+#chat-window{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:999;
+  background:#111;
+  border-radius:24px 24px 0 0;
+  box-shadow:0 -8px 48px rgba(0,0,0,.75);
+  display:none;
+  flex-direction:column;
+  max-height:90vh;   /* ← antes era ~520px fijos */
+  animation:cwSlideUp .35s cubic-bezier(.22,1,.36,1)
+}
+@media(min-width:640px){
+  #chat-window{bottom:24px;right:24px;left:auto;width:400px;border-radius:24px;max-height:80vh}
+}
+#chat-window.open{display:flex}
+
+/* Header */
+.cw-header{padding:18px 20px 16px;background:#0f0f0f;border-bottom:1px solid #1e1e1e;display:flex;align-items:center;gap:12px;flex-shrink:0;border-radius:24px 24px 0 0}
+@media(min-width:640px){.cw-header{border-radius:24px 24px 0 0}}
+.cw-avatar{width:46px;height:46px;background:var(--red);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.85rem;flex-shrink:0}
+.cw-header-info{flex:1;min-width:0}
+.cw-name{font-weight:700;font-size:1rem;color:var(--white)}
+.cw-status{font-size:.75rem;color:#4caf50;display:flex;align-items:center;gap:5px;margin-top:2px}
+.cw-status-dot{width:7px;height:7px;background:#4caf50;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+
+/* ★ BOTÓN CERRAR — grande, rojo, labelado, DENTRO del header ★ */
+#cw-close-btn{
+  width:54px;height:54px;
+  background:var(--red);
+  border:none;border-radius:14px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  flex-shrink:0;
+  transition:background .15s,transform .15s;
+  box-shadow:0 2px 14px rgba(232,25,44,.4)
+}
+#cw-close-btn:hover{background:#ff3c4e;transform:scale(1.06)}
+#cw-close-btn svg{width:22px;height:22px}
+#cw-close-btn .close-label{font-size:9px;font-weight:800;color:#fff;letter-spacing:.06em;text-transform:uppercase;font-family:'DM Sans',sans-serif;line-height:1}
+
+/* Mensajes */
+.cw-messages{flex:1;overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.cw-messages::-webkit-scrollbar{width:4px}
+.cw-messages::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:4px}
+
+/* ★ TEXTO BOT MÁS GRANDE ★ */
+.cw-msg-bot{background:#1e1e1e;color:var(--white);padding:14px 18px;border-radius:18px;border-bottom-left-radius:4px;align-self:flex-start;max-width:90%;font-size:16px;line-height:1.55;word-break:break-word;animation:cwMsgIn .2s ease}
+.cw-msg-user{background:var(--red);color:#fff;padding:14px 18px;border-radius:18px;border-bottom-right-radius:4px;align-self:flex-end;max-width:90%;font-size:16px;line-height:1.55;word-break:break-word;animation:cwMsgIn .2s ease}
+
+/* Typing */
+.typing{display:flex;gap:5px;align-items:center;padding:14px 18px;background:#1e1e1e;border-radius:18px;border-bottom-left-radius:4px;align-self:flex-start;width:68px}
+.typing span{width:8px;height:8px;border-radius:50%;background:#555;animation:bounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+
+/* Chips */
+.cw-chips{display:flex;flex-wrap:wrap;gap:8px;padding:4px 18px 14px;flex-shrink:0}
+.cw-chip{background:transparent;border:1px solid #2a2a2a;color:#ccc;padding:9px 16px;border-radius:100px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap}
+.cw-chip:hover{border-color:var(--red);color:var(--white)}
+
+/* Input */
+.cw-input-row{display:flex;gap:10px;padding:14px 18px;border-top:1px solid #1a1a1a;flex-shrink:0;padding-bottom:max(14px,env(safe-area-inset-bottom))}
+.cw-input{flex:1;background:#1a1a1a;border:1.5px solid #2a2a2a;color:var(--white);font-family:'DM Sans',sans-serif;font-size:16px;padding:13px 18px;border-radius:50px;outline:none;transition:border-color .2s;min-width:0}
+.cw-input:focus{border-color:var(--red)}
+.cw-input::placeholder{color:#444}
+.cw-send{width:48px;height:48px;background:var(--red);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,transform .15s;font-size:1rem}
+.cw-send:hover{background:var(--accent);transform:scale(1.05)}
+
+/* ★ BANNER PROACTIVO — interrumpe la navegación ★ */
+#cw-banner{position:fixed;top:0;left:0;right:0;z-index:1001;background:var(--red);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 4px 24px rgba(0,0,0,.4);transform:translateY(-110%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+#cw-banner.show{transform:translateY(0)}
+.banner-text{font-size:15px;font-weight:600;flex:1;line-height:1.3}
+.banner-cta{background:#fff;color:var(--red);font-size:13px;font-weight:800;padding:9px 18px;border-radius:50px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:transform .15s;font-family:'DM Sans',sans-serif}
+.banner-cta:hover{transform:scale(1.04)}
+.banner-x{background:none;border:none;color:rgba(255,255,255,.8);font-size:24px;cursor:pointer;line-height:1;flex-shrink:0;padding:0 4px}
+
+/* EXIT INTENT */
+#ei-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+#ei-overlay.open{display:flex;animation:eiFadeIn .25s ease}
+#ei-box{background:#0f0f0f;border:1px solid #222;border-radius:20px;max-width:520px;width:100%;overflow:hidden;position:relative;animation:eiSlideUp .3s ease;box-shadow:0 40px 80px rgba(0,0,0,.8);display:flex;flex-direction:column;max-height:90vh}
+/* EI close — barra fija en la parte superior del modal, siempre visible */
+#ei-close-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#0a0a0a;border-bottom:1px solid #1e1e1e;flex-shrink:0}
+#ei-close-bar-label{font-size:13px;color:#666;font-family:'DM Sans',sans-serif}
+#ei-close{width:auto;height:auto;background:var(--red);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;padding:10px 18px;transition:all .2s;box-shadow:0 2px 12px rgba(232,25,44,.4);font-family:'DM Sans',sans-serif;letter-spacing:.02em}
+#ei-close svg{width:18px;height:18px;flex-shrink:0}
+#ei-close:hover{background:#ff3c4e;transform:scale(1.03)}
+.ei-top{background:linear-gradient(135deg,#1a0a0a 0%,#0f0f0f 100%);border-bottom:1px solid #1e1e1e;padding:36px 36px 28px;position:relative;overflow:hidden}
+.ei-top::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(232,25,44,.15) 0%,transparent 70%);pointer-events:none}
+.ei-tag{display:inline-block;background:rgba(232,25,44,.15);border:1px solid rgba(232,25,44,.3);color:var(--red);font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:16px}
+.ei-top h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.3rem,4vw,1.8rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:12px;color:var(--white)}
+.ei-top h2 span{color:var(--red)}
+.ei-top p{font-size:.88rem;color:#777;font-weight:300;line-height:1.5}
+.ei-preview{display:flex;align-items:center;gap:14px;margin-top:20px;background:#111;border:1px solid #1e1e1e;border-radius:10px;padding:12px 16px}
+.ei-pdf-icon{width:40px;height:48px;background:var(--red);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ei-preview-name{font-size:.85rem;font-weight:600;color:var(--white)}
+.ei-preview-meta{font-size:.72rem;color:#555;margin-top:2px}
+.ei-checkmarks{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.ei-check{display:flex;align-items:flex-start;gap:8px;font-size:.8rem;color:#777;font-weight:300;line-height:1.4}
+.ei-check::before{content:'✓';color:#4caf50;font-weight:700;font-size:.75rem;flex-shrink:0;margin-top:1px}
+.ei-bottom{padding:28px 36px 32px}
+.ei-form{display:flex;flex-direction:column;gap:10px}
+.ei-input{background:#111;border:1px solid #222;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.9rem;padding:14px 18px;border-radius:10px;width:100%;outline:none;transition:border-color .2s}
+.ei-input::placeholder{color:#444}
+.ei-input:focus{border-color:var(--red)}
+.ei-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ei-submit{background:var(--red);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:600;font-size:.95rem;padding:16px;border-radius:10px;border:none;cursor:pointer;width:100%;margin-top:4px;transition:all .2s}
+.ei-submit:hover{background:var(--accent)}
+.ei-note{font-size:.72rem;color:#444;text-align:center;margin-top:10px}
+.ei-skip{display:block;text-align:center;font-size:.82rem;color:#555;cursor:pointer;margin-top:14px;background:none;border:none;width:100%;font-family:'DM Sans',sans-serif;text-decoration:underline;transition:color .2s}
+.ei-skip:hover{color:#999}
+.ei-success{padding:48px 36px;text-align:center;display:none}
+.ei-success-icon{font-size:3rem;margin-bottom:16px}
+.ei-success h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.4rem;letter-spacing:-.02em;margin-bottom:10px}
+.ei-success p{font-size:.88rem;color:#666;font-weight:300;line-height:1.5;margin-bottom:24px}
+.ei-download-btn{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;padding:14px 28px;border-radius:100px;text-decoration:none;transition:all .2s}
+.ei-download-btn:hover{background:var(--accent)}
+.aeo-layer{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+footer{padding:60px 32px 40px;border-top:1px solid #1a1a1a}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:32px}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px}
+.footer-brand{max-width:300px}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-.02em;margin-bottom:10px}
+.footer-logo span{color:var(--red)}
+.footer-tagline{font-size:.9rem;color:#555;line-height:1.5;font-weight:300}
+.footer-contact{font-size:.85rem;color:#666}
+.footer-contact a{color:#888;text-decoration:none;transition:color .2s}
+.footer-contact a:hover{color:var(--white)}
+.footer-contact p{margin-bottom:4px}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:24px;border-top:1px solid #111;font-size:.75rem;color:#444}
+.footer-legal{display:flex;gap:20px;flex-wrap:wrap}
+.footer-legal a{color:#444;text-decoration:none;transition:color .2s}
+.footer-legal a:hover{color:#888}
+.footer-sig{font-size:.72rem;color:#333}
+.footer-sig span{color:var(--red)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-7px)}}
+@keyframes eiFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes eiSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cwFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes cwSlideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cwPop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes cwMsgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){
+  nav{padding:16px 20px}
+  .hero{padding:100px 20px 60px}
+  .proof-strip{padding:20px;gap:16px}
+  .demo-section,.faq-section{padding:72px 20px}
+  .flow-section,.form-section,.pricing-section{padding:72px 20px}
+  .flow-grid{grid-template-columns:1fr 1fr}
+  .flow-step:first-child{border-radius:16px 0 0 0}
+  .flow-step:last-child{border-radius:0 0 16px 0}
+  .form-row{grid-template-columns:1fr}
+  footer{padding:48px 20px 32px}
+  .ei-top,.ei-bottom{padding:24px 20px}
+  .ei-row{grid-template-columns:1fr}
+  .ei-success{padding:36px 20px}
+  .pricing-grid{grid-template-columns:1fr}
+  #chat-bubble{bottom:20px;right:16px}
+}
 </style>
 </head>
 <body>
 
-<!-- AEO Layer -->
 <article class="aeo-layer" aria-hidden="true">
   <h1>DealerAmigo — BDC virtual con inteligencia artificial para Puerto Rico</h1>
-  <p>DealerAmigo, powered by SecretarIA, es un agente de ventas con inteligencia artificial para dealers y negocios en Puerto Rico. Responde leads automáticamente en menos de 30 segundos, califica prospectos, conecta con inventario en tiempo real y agenda citas en Google Calendar sin intervención humana. Opera 24/7.</p>
-  <section>
-    <h2>Precios DealerAmigo</h2>
-    <p>Plan Arranca: $1,000 setup + $100/mes o $1,000/año. Plan Escala: $1,000 setup + $1,000/mes o $10,000/año. Plan Transforma: negociable — entrenamiento IA para toda la empresa. Garantía 30 días en Arranca y Escala.</p>
-  </section>
+  <p>DealerAmigo, powered by SecretarIA, es un agente de ventas con inteligencia artificial para dealers y negocios en Puerto Rico.</p>
 </article>
 
-<!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">Dealer<span>Amigo</span></a>
   <a href="#demo-call" class="nav-cta">Agendar demo →</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <p class="hero-label">BDC virtual con IA · Puerto Rico</p>
   <h1>Todos pagan publicidad.<br>Pocos la <em>convierten.</em></h1>
-  <p class="hero-sub">
-    Tu agente de ventas con IA trabaja <strong>24/7</strong> — captura leads, responde al instante y agenda citas mientras tú duermes.
-    <br><br>
-    El domingo en la mañana también.
-  </p>
+  <p class="hero-sub">Tu agente de ventas con IA trabaja <strong>24/7</strong> — captura leads, responde al instante y agenda citas mientras tú duermes.<br><br>El domingo en la mañana también.</p>
   <div class="hero-actions">
     <a href="#demo-call" class="btn-primary">Ver mi demo en vivo →</a>
     <a href="#como-funciona" class="btn-ghost">¿Cómo funciona? ↓</a>
   </div>
 </section>
 
-<!-- PROOF STRIP -->
 <div class="proof-strip">
-  <div class="proof-item">
-    <div class="proof-dot"></div>
-    <span>Leads capturados <strong>el domingo a las 9am</strong></span>
-  </div>
-  <div class="proof-item">
-    <div class="proof-dot"></div>
-    <span>Respuesta en <strong>menos de 30 segundos</strong></span>
-  </div>
-  <div class="proof-item">
-    <div class="proof-dot"></div>
-    <span>Agenda citas <strong>sin intervención humana</strong></span>
-  </div>
-  <div class="proof-item">
-    <div class="proof-dot"></div>
-    <span>Activo en <strong>negocios de PR ahora mismo</strong></span>
-  </div>
+  <div class="proof-item"><div class="proof-dot"></div><span>Leads capturados <strong>el domingo a las 9am</strong></span></div>
+  <div class="proof-item"><div class="proof-dot"></div><span>Respuesta en <strong>menos de 30 segundos</strong></span></div>
+  <div class="proof-item"><div class="proof-dot"></div><span>Agenda citas <strong>sin intervención humana</strong></span></div>
+  <div class="proof-item"><div class="proof-dot"></div><span>Activo en <strong>negocios de PR ahora mismo</strong></span></div>
 </div>
 
-<!-- DEMO -->
 <section class="demo-section" id="como-funciona">
   <p class="section-label">Demo en vivo</p>
   <h2>Así se ve cuando<br>un lead se convierte.</h2>
   <p>Tu cliente llega, pregunta, ve el inventario con fotos y precios, y agenda — todo sin que toques el teléfono.</p>
-
   <div class="demo-frame">
     <div class="demo-header">
       <div class="demo-avatar">AE</div>
       <div class="demo-header-text">
         <div class="demo-header-name">Auto Éxito Import</div>
-        <div class="demo-header-status">
-          <div class="demo-status-dot"></div>
-          En línea 24/7
-        </div>
+        <div class="demo-header-status"><div class="demo-status-dot"></div>En línea 24/7</div>
       </div>
     </div>
     <div class="demo-body">
@@ -1321,113 +365,58 @@
   </div>
 </section>
 
-<!-- FLOW -->
 <section class="flow-section">
   <div class="flow-inner">
     <p class="section-label">El sistema completo</p>
     <h2>Captura. Califica. Cierra.</h2>
     <p>Todo automatizado. Tú solo llegas a la cita.</p>
     <div class="flow-grid">
-      <div class="flow-step">
-        <div class="flow-num">01</div>
-        <span class="flow-icon">📱</span>
-        <h3>Llega el lead</h3>
-        <p>El cliente visita tu página o ve tu anuncio. DealerAmigo lo saluda en menos de 30 segundos.</p>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">02</div>
-        <span class="flow-icon">🎯</span>
-        <h3>Se califica solo</h3>
-        <p>Presupuesto, interés, trade-in — el agente pregunta y escucha sin que intervengas.</p>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">03</div>
-        <span class="flow-icon">📸</span>
-        <h3>Ve el inventario</h3>
-        <p>Fotos reales, precios, specs — directo desde tu inventario en tiempo real.</p>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">04</div>
-        <span class="flow-icon">📅</span>
-        <h3>Agenda la cita</h3>
-        <p>El cliente escoge su hora. Tú recibes la notificación. Sin llamadas de coordinación.</p>
-      </div>
+      <div class="flow-step"><div class="flow-num">01</div><span class="flow-icon">📱</span><h3>Llega el lead</h3><p>El cliente visita tu página o ve tu anuncio. DealerAmigo lo saluda en menos de 30 segundos.</p></div>
+      <div class="flow-step"><div class="flow-num">02</div><span class="flow-icon">🎯</span><h3>Se califica solo</h3><p>Presupuesto, interés, trade-in — el agente pregunta y escucha sin que intervengas.</p></div>
+      <div class="flow-step"><div class="flow-num">03</div><span class="flow-icon">📸</span><h3>Ve el inventario</h3><p>Fotos reales, precios, specs — directo desde tu inventario en tiempo real.</p></div>
+      <div class="flow-step"><div class="flow-num">04</div><span class="flow-icon">📅</span><h3>Agenda la cita</h3><p>El cliente escoge su hora. Tú recibes la notificación. Sin llamadas de coordinación.</p></div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="faq-section">
   <p class="section-label">Preguntas frecuentes</p>
   <h2>Las preguntas que siempre hacen.</h2>
-
   <div class="faq-item open">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      ¿Qué es DealerAmigo y en qué se diferencia de un chatbot normal?
-      <div class="faq-toggle">+</div>
-    </div>
-    <div class="faq-a">DealerAmigo es un agente de ventas con inteligencia artificial para dealers y negocios en Puerto Rico. A diferencia de un chatbot de respuestas predefinidas, DealerAmigo usa la API de Claude (Anthropic) como motor de razonamiento — interpreta contexto, conecta con tu inventario en tiempo real, califica prospectos y agenda citas de manera autónoma. No es un respondedor reactivo. Es un agente que toma decisiones.</div>
+    <div class="faq-q" onclick="toggleFaq(this)">¿Qué es DealerAmigo y en qué se diferencia de un chatbot normal?<div class="faq-toggle">+</div></div>
+    <div class="faq-a">DealerAmigo es un agente de ventas con inteligencia artificial para dealers y negocios en Puerto Rico. A diferencia de un chatbot de respuestas predefinidas, DealerAmigo usa la API de Claude (Anthropic) como motor de razonamiento — interpreta contexto, conecta con tu inventario en tiempo real, califica prospectos y agenda citas de manera autónoma.</div>
   </div>
-
   <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      ¿Cuánto cuesta DealerAmigo?
-      <div class="faq-toggle">+</div>
-    </div>
-    <div class="faq-a">Tres planes sin contrato. Arranca: $1,000 setup + $100/mes (o $1,000/año) — landing con bot que captura y agenda, recordatorios automáticos y seguimiento. Escala: $1,000 setup + $1,000/mes (o $10,000/año) — todo Arranca más bot con Claude API, inventario en vivo, dominio propio y G-Suite. Transforma: precio negociable — entrenamiento IA para toda la empresa, automatización de labor humana y API personalizada. Garantía de 30 días en Arranca y Escala.</div>
+    <div class="faq-q" onclick="toggleFaq(this)">¿Cuánto cuesta DealerAmigo?<div class="faq-toggle">+</div></div>
+    <div class="faq-a">Tres planes sin contrato. Arranca: $1,000 setup + $100/mes (o $1,000/año). Escala: $1,000 setup + $1,000/mes (o $10,000/año). Transforma: precio negociable — entrenamiento IA para toda la empresa. Garantía de 30 días en Arranca y Escala.</div>
   </div>
-
   <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      ¿Qué es un BDC virtual con IA para dealers?
-      <div class="faq-toggle">+</div>
-    </div>
-    <div class="faq-a">Un BDC virtual con IA es un sistema que reemplaza el departamento de seguimiento de leads de un dealership. A diferencia de un BDC humano que opera 8 horas al día, DealerAmigo opera 24/7. Responde leads al instante, califica prospectos, conecta con inventario en tiempo real y agenda citas — sin que un vendedor tenga que intervenir.</div>
+    <div class="faq-q" onclick="toggleFaq(this)">¿Qué es un BDC virtual con IA para dealers?<div class="faq-toggle">+</div></div>
+    <div class="faq-a">Un BDC virtual con IA reemplaza el departamento de seguimiento de leads. DealerAmigo opera 24/7, responde leads al instante, califica prospectos, conecta con inventario y agenda citas — sin intervención humana.</div>
   </div>
-
   <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      ¿En cuánto tiempo está listo para mi negocio?
-      <div class="faq-toggle">+</div>
-    </div>
-    <div class="faq-a">Entre 3 y 5 días hábiles desde que nos das acceso al inventario y los datos del negocio. El setup completo está incluido en todos los planes. No necesitas saber de tecnología — nosotros manejamos toda la configuración y te entregamos funcionando.</div>
+    <div class="faq-q" onclick="toggleFaq(this)">¿En cuánto tiempo está listo para mi negocio?<div class="faq-toggle">+</div></div>
+    <div class="faq-a">Entre 3 y 5 días hábiles. El setup completo está incluido en todos los planes. No necesitas saber de tecnología.</div>
   </div>
-
   <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      ¿Qué pasa si el agente no sabe responder algo?
-      <div class="faq-toggle">+</div>
-    </div>
-    <div class="faq-a">El agente está entrenado con la información específica de tu negocio — inventario, precios, servicios, horarios, políticas. Cuando llega algo fuera de su alcance, escala al equipo humano y captura los datos del lead de todas formas. Nunca deja ir a un prospecto sin capturar su información.</div>
+    <div class="faq-q" onclick="toggleFaq(this)">¿Qué pasa si el agente no sabe responder algo?<div class="faq-toggle">+</div></div>
+    <div class="faq-a">El agente está entrenado con la información específica de tu negocio. Cuando llega algo fuera de su alcance, escala al equipo humano y captura los datos del lead de todas formas.</div>
   </div>
-
   <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      ¿Puedo cancelar cuando quiera?
-      <div class="faq-toggle">+</div>
-    </div>
+    <div class="faq-q" onclick="toggleFaq(this)">¿Puedo cancelar cuando quiera?<div class="faq-toggle">+</div></div>
     <div class="faq-a">Sí. Sin contrato, sin penalidad. Si en 30 días no ves más citas, hablamos — y si no resolvemos, no pagas.</div>
   </div>
 </section>
 
-<!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="pricing-inner">
     <p class="section-label">Inversión</p>
     <h2>Simple. Sin trampa.</h2>
     <p class="pricing-setup-note">Setup único $1,000 en Arranca y Escala. Luego mensual o anual — tú decides.</p>
-
     <div class="pricing-grid">
-
-      <!-- ARRANCA -->
       <div class="plan-card">
-        <p class="plan-tier">Tier 1</p>
-        <h3 class="plan-name">Arranca</h3>
-        <div class="plan-price-block">
-          <span class="plan-price">$100</span><span class="plan-period">/mes</span>
-          <p class="plan-annual">o $1,000/año — ahorras $200</p>
-          <p class="plan-setup">+ $1,000 setup única vez</p>
-        </div>
+        <p class="plan-tier">Tier 1</p><h3 class="plan-name">Arranca</h3>
+        <div class="plan-price-block"><span class="plan-price">$100</span><span class="plan-period">/mes</span><p class="plan-annual">o $1,000/año — ahorras $200</p><p class="plan-setup">+ $1,000 setup única vez</p></div>
         <div class="plan-features">
           <div class="plan-feature">✓ <span>Landing de servicio con bot</span></div>
           <div class="plan-feature">✓ <span>Bot que captura y agenda</span></div>
@@ -1438,17 +427,10 @@
         </div>
         <a href="#demo-call" class="plan-cta outline">Empezar →</a>
       </div>
-
-      <!-- ESCALA -->
       <div class="plan-card featured">
         <div class="plan-badge">Más popular</div>
-        <p class="plan-tier">Tier 2</p>
-        <h3 class="plan-name">Escala</h3>
-        <div class="plan-price-block">
-          <span class="plan-price">$1,000</span><span class="plan-period">/mes</span>
-          <p class="plan-annual">o $10,000/año — ahorras $2,000</p>
-          <p class="plan-setup">+ $1,000 setup única vez</p>
-        </div>
+        <p class="plan-tier">Tier 2</p><h3 class="plan-name">Escala</h3>
+        <div class="plan-price-block"><span class="plan-price">$1,000</span><span class="plan-period">/mes</span><p class="plan-annual">o $10,000/año — ahorras $2,000</p><p class="plan-setup">+ $1,000 setup única vez</p></div>
         <div class="plan-features">
           <div class="plan-feature">✓ <span>Todo Arranca incluido</span></div>
           <div class="plan-feature">✓ <span>Bot Claude API — piensa como humano</span></div>
@@ -1460,15 +442,9 @@
         </div>
         <a href="#demo-call" class="plan-cta solid">Quiero esta →</a>
       </div>
-
-      <!-- TRANSFORMA -->
       <div class="plan-card">
-        <p class="plan-tier">Tier 3</p>
-        <h3 class="plan-name">Transforma</h3>
-        <div class="plan-price-block">
-          <span class="plan-price" style="font-size:2rem;">Negociable</span>
-          <p class="plan-annual" style="margin-top:8px;">Pago flexible — cripto, activos, equity</p>
-        </div>
+        <p class="plan-tier">Tier 3</p><h3 class="plan-name">Transforma</h3>
+        <div class="plan-price-block"><span class="plan-price" style="font-size:2rem">Negociable</span><p class="plan-annual" style="margin-top:8px">Pago flexible — cripto, activos, equity</p></div>
         <div class="plan-features">
           <div class="plan-feature">✓ <span>Todo Escala incluido</span></div>
           <div class="plan-feature">✓ <span>Entrenamiento IA toda la empresa</span></div>
@@ -1479,18 +455,15 @@
         </div>
         <a href="#demo-call" class="plan-cta muted">Conversemos →</a>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- LEAD FORM -->
 <section class="form-section" id="demo-call">
   <div class="form-inner">
     <p class="section-label">Agenda tu demo</p>
     <h2>Mira cómo funciona<br>en tu negocio.</h2>
     <p>Una llamada de 20 minutos. Te muestro el agente en vivo con tu inventario. <strong>Sin compromiso.</strong></p>
-
     <form class="lead-form" onsubmit="submitLead(event)">
       <div class="form-row">
         <input class="form-input" type="text" name="nombre" placeholder="Tu nombre" required>
@@ -1504,79 +477,86 @@
         <option value="inmobiliaria">Inmobiliaria</option>
         <option value="otro">Otro negocio</option>
       </select>
-      <button type="submit" class="form-submit" id="submit-btn">
-        Quiero mi demo gratis →
-      </button>
+      <button type="submit" class="form-submit" id="submit-btn">Quiero mi demo gratis →</button>
     </form>
     <p class="form-note">Solo te contactamos para agendar. Sin spam, sin ventas de presión.</p>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
         <div class="footer-logo">Dealer<span>Amigo</span></div>
-        <p class="footer-tagline">El BDC virtual con inteligencia artificial para negocios en Puerto Rico. Captura, califica y cierra mientras tú te enfocas en lo que importa.</p>
+        <p class="footer-tagline">El BDC virtual con inteligencia artificial para negocios en Puerto Rico.</p>
       </div>
       <div class="footer-contact">
         <p>📱 <a href="tel:7875301101">787-530-1101</a></p>
         <p>📍 Puerto Rico</p>
-        <p style="margin-top:12px;font-size:0.78rem;color:#444;">Powered by SecretarIA</p>
+        <p style="margin-top:12px;font-size:.78rem;color:#444">Powered by SecretarIA</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-legal">
-        <a href="#">Términos de uso</a>
-        <a href="#">Política de privacidad</a>
-      </div>
+      <div class="footer-legal"><a href="#">Términos de uso</a><a href="#">Política de privacidad</a></div>
       <p class="footer-sig">Built in Puerto Rico by <span>SecretarIA</span> · © 2026</p>
     </div>
   </div>
 </footer>
 
-<!-- CHAT WIDGET -->
+<!-- BANNER PROACTIVO -->
+<div id="cw-banner">
+  <div class="banner-text">👋 ¿Preguntas sobre DealerAmigo? ARIA te responde ahora</div>
+  <button class="banner-cta" onclick="openChat();hideBanner()">Hablar con ARIA →</button>
+  <button class="banner-x" onclick="hideBanner()">×</button>
+</div>
+
+<!-- BACKDROP -->
+<div id="cw-backdrop" onclick="closeChat()"></div>
+
+<!-- LANZADOR -->
 <div id="chat-bubble">
-  <div id="chat-window">
-    <div class="cw-header">
-      <div class="cw-avatar">AR</div>
-      <div>
-        <div class="cw-name">ARIA · DealerAmigo</div>
-        <div class="cw-status">● En línea ahora</div>
-      </div>
+  <div id="cw-proactive" onclick="openChat()">¿Tienes preguntas? Chatea con ARIA 💬</div>
+  <button id="chat-toggle" onclick="openChat()" aria-label="Abrir chat">💬</button>
+</div>
+
+<!-- VENTANA CHAT -->
+<div id="chat-window">
+  <div class="cw-header">
+    <div class="cw-avatar">AR</div>
+    <div class="cw-header-info">
+      <div class="cw-name">ARIA · DealerAmigo</div>
+      <div class="cw-status"><div class="cw-status-dot"></div>En línea ahora</div>
     </div>
-    <div class="cw-messages" id="cw-messages">
-      <div class="cw-msg-bot">¡Hola! Soy ARIA 👋 ¿Quieres ver cómo DealerAmigo funcionaría en tu negocio?</div>
-    </div>
-    <div class="cw-chips" id="cw-chips">
-      <button class="cw-chip" onclick="sendChip('Tengo un dealer')">Tengo un dealer</button>
-      <button class="cw-chip" onclick="sendChip('Tengo una barbería')">Tengo barbería</button>
-      <button class="cw-chip" onclick="sendChip('¿Cuánto cuesta?')">¿Cuánto cuesta?</button>
-    </div>
-    <div class="cw-input-row">
-      <input class="cw-input" id="cw-input" placeholder="Escribe aquí..." onkeydown="if(event.key==='Enter')sendMsg()">
-      <button class="cw-send" onclick="sendMsg()">→</button>
-    </div>
+    <!-- ★ X GRANDE DENTRO DEL HEADER — nunca tapada por el navegador ★ -->
+    <button id="cw-close-btn" onclick="closeChat()" aria-label="Cerrar chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <span class="close-label">Cerrar</span>
+    </button>
   </div>
-  <button id="chat-toggle" onclick="toggleChat()">💬</button>
+  <div class="cw-messages" id="cw-messages"></div>
+  <div class="cw-chips" id="cw-chips">
+    <button class="cw-chip" onclick="sendChip('Tengo un dealer')">Tengo un dealer</button>
+    <button class="cw-chip" onclick="sendChip('Tengo una barbería')">Tengo barbería</button>
+    <button class="cw-chip" onclick="sendChip('¿Cuánto cuesta?')">¿Cuánto cuesta?</button>
+  </div>
+  <div class="cw-input-row">
+    <input class="cw-input" id="cw-input" placeholder="Escribe aquí..." onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="cw-send" onclick="sendMsg()">→</button>
+  </div>
 </div>
 
 <!-- EXIT INTENT -->
 <div id="ei-overlay">
   <div id="ei-box">
-    <button id="ei-close" onclick="closeExitIntent()">✕</button>
-    <div id="ei-content">
+    <div id="ei-close-bar"><span id="ei-close-bar-label">Oferta especial · PDF Gratis</span><button id="ei-close" onclick="closeExitIntent()"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Cerrar</button></div>
+    <div id="ei-content" style="overflow-y:auto;flex:1">
       <div class="ei-top">
         <div class="ei-tag">Descarga gratis</div>
         <h2>Antes de irte —<br>llévate <span>el sistema completo.</span></h2>
         <p>El PDF que explica cómo los dealers de PR están capturando leads automáticamente, 24/7, sin contratar más personal.</p>
         <div class="ei-preview">
           <div class="ei-pdf-icon">📄</div>
-          <div>
-            <div class="ei-preview-name">DealerAmigo — Guía del Sistema</div>
-            <div class="ei-preview-meta">PDF · 8 páginas · Gratis</div>
-          </div>
+          <div><div class="ei-preview-name">DealerAmigo — Guía del Sistema</div><div class="ei-preview-meta">PDF · 8 páginas · Gratis</div></div>
         </div>
         <div class="ei-checkmarks">
           <div class="ei-check">Por qué el 78% de leads compra al primero que contesta</div>
@@ -1607,252 +587,98 @@
 </div>
 
 <script>
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CONFIG — SOLO CAMBIA ESTA URL
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6_DDlCsbADrQwf1iXkOOO8AVX_4us1rdNshKhwH64f2G9fE-sWg76-gCNI5NFT2_Nlw/exec';
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwLKTbkI9cHy-SWACXndxtL_9yOH8G025ARIMUrOMVRxx2r7VxaDpy_sVIqA7Az12P4mw/exec';
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// FAQ
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function toggleFaq(el) {
-  const item = el.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
+function toggleFaq(el){const item=el.closest('.faq-item'),isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)item.classList.add('open')}
+
+let chatOpened=false;
+function hideBanner(){document.getElementById('cw-banner').classList.remove('show')}
+function openChat(){
+  document.getElementById('chat-window').classList.add('open');
+  document.getElementById('cw-backdrop').classList.add('open');
+  document.getElementById('chat-bubble').style.display='none';
+  document.body.style.overflow='hidden';
+  hideBanner();
+  if(!chatOpened){chatOpened=true;setTimeout(()=>addBotMsg('¡Hola! Soy ARIA 👋 ¿Quieres ver cómo DealerAmigo funcionaría en tu negocio?'),350)}
+  setTimeout(()=>document.getElementById('cw-input').focus(),500)
 }
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CHAT
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-let chatOpen = false;
-
-function toggleChat() {
-  chatOpen = !chatOpen;
-  document.getElementById('chat-window').classList.toggle('open', chatOpen);
-  document.getElementById('chat-toggle').textContent = chatOpen ? '✕' : '💬';
+function closeChat(){
+  document.getElementById('chat-window').classList.remove('open');
+  document.getElementById('cw-backdrop').classList.remove('open');
+  document.getElementById('chat-bubble').style.display='flex';
+  document.body.style.overflow=''
 }
+setTimeout(()=>{if(!chatOpened)document.getElementById('cw-banner').classList.add('show')},6000);
+setTimeout(()=>{if(!chatOpened)openChat()},20000);
 
-const ARIA_SYSTEM = `Eres ARIA, el agente de ventas de DealerAmigo.
+const ARIA_SYSTEM=`Eres ARIA, el agente de ventas de DealerAmigo.\n\nIDENTIDAD:\n- Eres ARIA. Nunca menciones a Wilfredo ni que hay un humano detrás.\n- Representas DealerAmigo — un BDC virtual con IA para dealers y negocios en Puerto Rico.\n- Powered by SecretarIA.\n- Directa, warm, profesional. Sin relleno. Sin loops.\n\nPRODUCTO:\nAgente IA que responde leads en menos de 30 segundos, califica clientes, conecta con inventario real y agenda citas. Opera 24/7 incluyendo domingos y feriados.\n\nPRECIOS (siempre menciona setup + mensual):\n- ARRANCA: $1,000 setup único + $100/mes (o $1,000/año).\n- ESCALA: $1,000 setup único + $1,000/mes (o $10,000/año).\n- TRANSFORMA: Negociable. Pago flexible: cripto, activos, equity.\n\nOBJETIVO:\n1. Entender qué tipo de negocio tiene el usuario\n2. Calificar\n3. Presentar el tier correcto\n4. Moverlo a agendar demo de 20 minutos\n\nREGLAS:\n- Máximo 2-3 oraciones por respuesta\n- Siempre termina con UNA pregunta\n- Nunca repitas la misma respuesta\n- Acepta inglés o español según el usuario`;
 
-IDENTIDAD:
-- Eres ARIA. Nunca menciones a Wilfredo ni que hay un humano detrás.
-- Representas DealerAmigo — un BDC virtual con IA para dealers y negocios en Puerto Rico.
-- Powered by SecretarIA.
-- Directa, warm, profesional. Sin relleno. Sin loops.
-
-PRODUCTO:
-Agente IA que responde leads en menos de 30 segundos, califica clientes, conecta con inventario real y agenda citas. Opera 24/7 incluyendo domingos y feriados.
-
-PRECIOS (siempre menciona setup + mensual):
-- ARRANCA: $1,000 setup único + $100/mes (o $1,000/año). Landing con bot, recordatorios, seguimiento automático.
-- ESCALA: $1,000 setup único + $1,000/mes (o $10,000/año). Todo Arranca + bot Claude API, inventario en vivo, dominio, G-Suite.
-- TRANSFORMA: Negociable. Entrenamiento IA toda la empresa, automatización, API personalizada. Pago flexible: cripto, activos, equity.
-
-OBJETIVO:
-1. Entender qué tipo de negocio tiene el usuario
-2. Calificar (¿tiene leads? ¿cuántos? ¿los sigue?)
-3. Presentar el tier correcto
-4. Moverlo a agendar demo de 20 minutos
-
-REGLAS:
-- Máximo 2-3 oraciones por respuesta
-- Siempre termina con UNA pregunta para avanzar
-- Nunca repitas la misma respuesta
-- Un lead de dealer vale $5,000-15,000 en comisión — úsalo para justificar precio
-- Acepta inglés o español según el usuario`;
-
-let ariaHistory = [];
-
-function addMsg(text, type) {
-  const msgs = document.getElementById('cw-messages');
-  const div = document.createElement('div');
-  div.className = type === 'bot' ? 'cw-msg-bot' : 'cw-msg-user';
-  div.textContent = text;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
+let ariaHistory=[];
+function addBotMsg(text){
+  const msgs=document.getElementById('cw-messages');
+  const t=document.createElement('div');t.className='typing';t.id='cw-typing';t.innerHTML='<span></span><span></span><span></span>';
+  msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    const el=document.getElementById('cw-typing');if(el)el.remove();
+    const div=document.createElement('div');div.className='cw-msg-bot';
+    div.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+    msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight
+  },900)
 }
-
-function showTyping() {
-  const msgs = document.getElementById('cw-messages');
-  const t = document.createElement('div');
-  t.className = 'typing'; t.id = 'typing';
-  t.innerHTML = '<span></span><span></span><span></span>';
-  msgs.appendChild(t);
-  msgs.scrollTop = msgs.scrollHeight;
+function addUserMsg(text){
+  const msgs=document.getElementById('cw-messages');
+  const div=document.createElement('div');div.className='cw-msg-user';div.textContent=text;
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight
 }
-
-function removeTyping() {
-  const t = document.getElementById('typing');
-  if (t) t.remove();
-}
-
-async function callARIA(userMsg) {
-  ariaHistory.push({ role: 'user', content: userMsg });
-  try {
-    const response = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({
-        type: 'aria_chat',
-        system: ARIA_SYSTEM,
-        messages: ariaHistory
-      })
-    });
-    const data = await response.json();
-    const reply = data.reply || '¿Puedes contarme más sobre tu negocio?';
-    ariaHistory.push({ role: 'assistant', content: reply });
-    return reply;
-  } catch(e) {
-    const fallbacks = [
-      '¿Qué tipo de negocio tienes? Así te digo exactamente cómo DealerAmigo te ayuda.',
-      '¿Cuántos leads recibes por mes aproximadamente?',
-      '¿Tienes 20 minutos esta semana para una demo en vivo?'
-    ];
-    return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+async function callARIA(userMsg){
+  ariaHistory.push({role:'user',content:userMsg});
+  try{
+    const r=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:'aria_chat',system:ARIA_SYSTEM,messages:ariaHistory})});
+    const d=await r.json();const reply=d.reply||'¿Puedes contarme más sobre tu negocio?';
+    ariaHistory.push({role:'assistant',content:reply});return reply
+  }catch(e){
+    const f=['¿Qué tipo de negocio tienes? Así te digo exactamente cómo DealerAmigo te ayuda.','¿Cuántos leads recibes por mes aproximadamente?','¿Tienes 20 minutos esta semana para una demo en vivo?'];
+    return f[Math.floor(Math.random()*f.length)]
   }
 }
-
-async function respond(userMsg) {
-  document.getElementById('cw-chips').style.display = 'none';
-  showTyping();
-  const reply = await callARIA(userMsg);
-  removeTyping();
-  addMsg(reply, 'bot');
+async function respond(userMsg){
+  document.getElementById('cw-chips').style.display='none';
+  const reply=await callARIA(userMsg);addBotMsg(reply)
+}
+function sendChip(text){addUserMsg(text);respond(text)}
+function sendMsg(){
+  const input=document.getElementById('cw-input'),text=input.value.trim();
+  if(!text)return;input.value='';addUserMsg(text);respond(text)
 }
 
-function sendChip(text) { addMsg(text, 'user'); respond(text); }
-
-function sendMsg() {
-  const input = document.getElementById('cw-input');
-  const text = input.value.trim();
-  if (!text) return;
-  addMsg(text, 'user');
-  input.value = '';
-  respond(text);
+async function submitLead(e){
+  e.preventDefault();const btn=document.getElementById('submit-btn'),form=e.target;
+  const data={nombre:form.nombre.value.trim(),telefono:form.telefono.value.trim(),tipo_negocio:form.tipo_negocio.value,fuente:'Landing DealerAmigo',fecha:new Date().toLocaleString('es-PR',{timeZone:'America/Puerto_Rico'}),intent:'demo'};
+  btn.textContent='Enviando...';btn.disabled=true;
+  try{await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)})}catch(_){}
+  btn.textContent='✓ ¡Listo! Te contactamos hoy.';btn.style.background='#16a34a';form.reset()
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// LEAD FORM
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-async function submitLead(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submit-btn');
-  const form = e.target;
-
-  const data = {
-    nombre:       form.nombre.value.trim(),
-    telefono:     form.telefono.value.trim(),
-    tipo_negocio: form.tipo_negocio.value,
-    fuente:       'Landing DealerAmigo',
-    fecha:        new Date().toLocaleString('es-PR', { timeZone: 'America/Puerto_Rico' }),
-    intent:       'demo'
-  };
-
-  btn.textContent = 'Enviando...';
-  btn.disabled = true;
-
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(data)
-    });
-  } catch (_) { /* silencioso — siempre muestra éxito */ }
-
-  btn.textContent = '✓ ¡Listo! Te contactamos hoy.';
-  btn.style.background = '#16a34a';
-  form.reset();
+let eiShown=false,eiDismissed=false;
+document.addEventListener('mouseleave',e=>{if(e.clientY<=0&&!eiShown&&!eiDismissed)showExitIntent()});
+let lastScrollY=0;
+window.addEventListener('scroll',()=>{const cy=window.scrollY;if((lastScrollY-cy)>60&&cy>window.innerHeight*.4&&!eiShown&&!eiDismissed)showExitIntent();lastScrollY=cy},{passive:true});
+setTimeout(()=>{if(!eiShown&&!eiDismissed)showExitIntent()},60000);
+function showExitIntent(){eiShown=true;document.getElementById('ei-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeExitIntent(){eiDismissed=true;document.getElementById('ei-overlay').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeExitIntent()});
+document.getElementById('ei-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('ei-overlay'))closeExitIntent()});
+async function submitExitIntent(e){
+  e.preventDefault();const form=e.target,btn=document.getElementById('ei-submit-btn');
+  const data={nombre:form.ei_nombre.value.trim(),telefono:form.ei_telefono.value.trim(),email:form.ei_email.value.trim(),tipo_negocio:'Lead Magnet — PDF Brochure',fuente:'Exit Intent — DealerAmigo',fecha:new Date().toLocaleString('es-PR',{timeZone:'America/Puerto_Rico'}),intent:'lead_magnet'};
+  btn.textContent='Enviando...';btn.disabled=true;
+  try{await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)})}catch(_){}
+  document.getElementById('ei-content').style.display='none';document.getElementById('ei-success').style.display='block';
+  setTimeout(()=>closeExitIntent(),8000)
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// EXIT INTENT
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-let eiShown = false;
-let eiDismissed = false;
-
-document.addEventListener('mouseleave', (e) => {
-  if (e.clientY <= 0 && !eiShown && !eiDismissed) showExitIntent();
-});
-
-let lastScrollY = 0;
-window.addEventListener('scroll', () => {
-  const currentY = window.scrollY;
-  const velocity = lastScrollY - currentY;
-  if (velocity > 60 && currentY > window.innerHeight * 0.4 && !eiShown && !eiDismissed) {
-    showExitIntent();
-  }
-  lastScrollY = currentY;
-}, { passive: true });
-
-setTimeout(() => { if (!eiShown && !eiDismissed) showExitIntent(); }, 60000);
-
-function showExitIntent() {
-  eiShown = true;
-  document.getElementById('ei-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeExitIntent() {
-  eiDismissed = true;
-  document.getElementById('ei-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeExitIntent(); });
-document.getElementById('ei-overlay').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('ei-overlay')) closeExitIntent();
-});
-
-async function submitExitIntent(e) {
-  e.preventDefault();
-  const form = e.target;
-  const btn = document.getElementById('ei-submit-btn');
-
-  const data = {
-    nombre:       form.ei_nombre.value.trim(),
-    telefono:     form.ei_telefono.value.trim(),
-    email:        form.ei_email.value.trim(),
-    tipo_negocio: 'Lead Magnet — PDF Brochure',
-    fuente:       'Exit Intent — DealerAmigo',
-    fecha:        new Date().toLocaleString('es-PR', { timeZone: 'America/Puerto_Rico' }),
-    intent:       'lead_magnet'
-  };
-
-  btn.textContent = 'Enviando...';
-  btn.disabled = true;
-
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(data)
-    });
-  } catch (_) {}
-
-  document.getElementById('ei-content').style.display = 'none';
-  document.getElementById('ei-success').style.display = 'block';
-  setTimeout(() => closeExitIntent(), 8000);
-}
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// SCROLL REVEAL
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.opacity = '1';
-      e.target.style.transform = 'translateY(0)';
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.flow-step, .faq-item, .demo-frame, .plan-card').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(16px)';
-  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  observer.observe(el);
-});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1});
+document.querySelectorAll('.flow-step,.faq-item,.demo-frame,.plan-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .5s ease,transform .5s ease';observer.observe(el)});
 </script>
 </body>
 </html>
