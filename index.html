@@ -613,29 +613,30 @@ setTimeout(()=>{if(!chatOpened)openChat()},20000);
 
 const ARIA_SYSTEM=`Eres ARIA, agente de ventas de DealerAmigo.
 
-IDENTIDAD: Eres ARIA. Directa, warm, profesional. Nunca menciones Wilfredo ni Calendly ni links externos.
+IDENTIDAD: Directa, warm, profesional. Nunca menciones Wilfredo, Calendly, ni links externos.
 
-PRODUCTO: BDC virtual con IA para dealers y negocios en PR. Responde leads en menos de 30 segundos, agenda citas automáticamente en Google Calendar. Opera 24/7.
+PRODUCTO: BDC virtual con IA para dealers y negocios en PR. Agenda citas directamente en Google Calendar. Opera 24/7.
 
 PRECIOS:
 - ARRANCA: $1,000 setup + $100/mes
-- ESCALA: $1,000 setup + $1,000/mes  
+- ESCALA: $1,000 setup + $1,000/mes
 - TRANSFORMA: Negociable
 
-FLUJO — sigue este orden:
+FLUJO — sigue este orden estricto, UNA pregunta por turno:
 1. Pregunta qué tipo de negocio tiene
 2. Pregunta cuántos leads/clientes recibe al mes
-3. Recomienda el plan correcto
-4. Cuando muestre interés → di: "Perfecto, te agendo la demo ahora mismo. ¿Cuál es tu nombre completo?"
-5. Cuando te dé el nombre → di: "Gracias [nombre]. ¿Y tu número de teléfono?"
-6. Cuando te dé el teléfono → di: "¿Prefieres la demo hoy, mañana, o qué día de esta semana?"
-7. El sistema agendará automáticamente — tú solo confirma que quedó agendado
+3. Recomienda el plan correcto con precio
+4. Cuando muestre interés → "Perfecto, te agendo la demo ahora. ¿Cuál es tu nombre completo?"
+5. Tienes el nombre → "Gracias [nombre]. ¿Tu número de teléfono?"
+6. Tienes el teléfono → "¿Y tu email para enviarte la invitación de Google Calendar?"
+7. Tienes el email → "¿Prefieres la demo hoy, mañana, o qué día de esta semana?"
+8. Tienes el día → "¡Listo [nombre]! Tu demo queda agendada para el [día]. Te llegará la invitación a [email] y te llamamos al [teléfono]."
 
 REGLAS:
+- NUNCA mandes links ni menciones Calendly
+- El sistema agenda automáticamente en Google Calendar — tú solo recopila los datos
 - Máximo 2 oraciones por respuesta
 - Una sola pregunta por turno
-- NUNCA mandes links ni menciones Calendly
-- El agendado es automático — no necesitas hacer nada especial
 - Acepta inglés o español`;
 
 let ariaHistory=[];
@@ -666,50 +667,69 @@ async function callARIA(userMsg){
     return f[Math.floor(Math.random()*f.length)]
   }
 }
-// Estado del lead — se construye progresivamente en la conversación
-const leadState = { nombre: null, telefono: null, tipo_negocio: null, fecha_preferida: null };
+// Estado del lead — se construye progresivamente
+const leadState = {
+  nombre: null, telefono: null, email: null,
+  tipo_negocio: null, fecha_preferida: null,
+  scheduled: false  // evita doble agendado
+};
 
-// Extrae datos del mensaje del usuario directamente
+// Extrae datos del mensaje del usuario automáticamente
 function extractFromUserMsg(text) {
-  // Teléfono: 10 dígitos, con o sin guiones/espacios/paréntesis
-  const phoneMatch = text.match(/\b(\d{3}[\s\-.]?\d{3}[\s\-.]?\d{4}|\d{10})\b/);
-  if (phoneMatch) leadState.telefono = phoneMatch[0].replace(/[\s\-.]/g, '-');
+  const t = text.trim();
+
+  // Email
+  const emailMatch = t.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+  if (emailMatch) leadState.email = emailMatch[0];
+
+  // Teléfono: 10 dígitos con o sin separadores
+  const phoneMatch = t.match(/\b(\d{3}[\s\-.]?\d{3}[\s\-.]?\d{4}|\d{10})\b/);
+  if (phoneMatch) leadState.telefono = phoneMatch[0].replace(/[\s\.]/g, '-');
 
   // Día preferido
-  const lower = text.toLowerCase();
-  if (lower.includes('hoy'))                                   leadState.fecha_preferida = 'hoy';
-  else if (lower.includes('ma') && lower.includes('ana'))      leadState.fecha_preferida = 'mañana';
-  else if (lower.includes('lunes'))                            leadState.fecha_preferida = 'lunes';
-  else if (lower.includes('martes'))                           leadState.fecha_preferida = 'martes';
-  else if (lower.includes('miér') || lower.includes('mierc')) leadState.fecha_preferida = 'miercoles';
-  else if (lower.includes('jueves'))                           leadState.fecha_preferida = 'jueves';
-  else if (lower.includes('viernes'))                          leadState.fecha_preferida = 'viernes';
+  const lower = t.toLowerCase();
+  if (lower.includes('hoy'))                                    leadState.fecha_preferida = 'hoy';
+  else if (lower.includes('ma') && lower.includes('ana'))       leadState.fecha_preferida = 'mañana';
+  else if (lower.includes('lunes'))                             leadState.fecha_preferida = 'lunes';
+  else if (lower.includes('martes'))                            leadState.fecha_preferida = 'martes';
+  else if (lower.includes('miér') || lower.includes('mierc'))  leadState.fecha_preferida = 'miercoles';
+  else if (lower.includes('jueves'))                            leadState.fecha_preferida = 'jueves';
+  else if (lower.includes('viernes'))                           leadState.fecha_preferida = 'viernes';
 }
 
-// ¿Tenemos suficiente para agendar?
+// ¿Tenemos todo para agendar? — requiere email para invitación de calendario
 function readyToSchedule() {
-  return leadState.nombre && leadState.telefono && leadState.fecha_preferida;
+  return leadState.nombre &&
+         leadState.telefono &&
+         leadState.email &&
+         leadState.fecha_preferida &&
+         !leadState.scheduled;
 }
 
-// Agenda directamente sin depender del modelo
+// Agenda directamente en Google Calendar via Apps Script
 async function scheduleDemo() {
+  leadState.scheduled = true; // marcar antes de llamar para evitar doble
   const payload = {
     nombre:          leadState.nombre,
     telefono:        leadState.telefono,
+    email:           leadState.email,
     tipo_negocio:    leadState.tipo_negocio || 'No especificado',
     fecha_preferida: leadState.fecha_preferida,
     fuente:          'ARIA Chat',
-    intent:          'demo'
+    intent:          'demo',
+    interesDEMO:     'Sí'
   };
   try {
-    await fetch(APPS_SCRIPT_URL, {
+    const r = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(payload)
     });
-    console.log('✅ Demo agendada:', payload);
+    const d = await r.json();
+    console.log('✅ Demo agendada en calendario:', d);
   } catch(err) {
     console.log('Error agendando:', err);
+    leadState.scheduled = false; // permitir reintento si falla
   }
 }
 
