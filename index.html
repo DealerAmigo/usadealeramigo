@@ -121,15 +121,6 @@ select.form-input{cursor:pointer}
 .form-submit:disabled{opacity:.7;cursor:not-allowed;transform:none}
 .form-note{font-size:.75rem;color:#555;text-align:center;margin-top:8px}
 
-/* ══════════════════════════════════════════════
-   CHAT WIDGET — NUEVO DISEÑO
-   Cambios vs versión anterior:
-   1. X grande y etiquetada DENTRO del header
-   2. Texto bot 16px (era 0.85rem≈13.6px)
-   3. Modal ocupa 90vh en móvil (era 520px)
-   4. Banner proactivo a los 6s + auto-open 20s
-══════════════════════════════════════════════ */
-
 /* Backdrop */
 #cw-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.58);backdrop-filter:blur(3px);z-index:998;animation:cwFadeIn .25s ease}
 #cw-backdrop.open{display:block}
@@ -587,7 +578,7 @@ footer{padding:60px 32px 40px;border-top:1px solid #1a1a1a}
 </div>
 
 <script>
-const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwLKTbkI9cHy-SWACXndxtL_9yOH8G025ARIMUrOMVRxx2r7VxaDpy_sVIqA7Az12P4mw/exec';
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbxULQlDqp3FVnwrxlucJJ3YjiBZ67XFIa4EUZ7_1Fvm5tIrHgFCrW_MZu8CvvyktNBCOg/exec';
 
 function toggleFaq(el){const item=el.closest('.faq-item'),isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)item.classList.add('open')}
 
