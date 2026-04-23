@@ -478,6 +478,11 @@ footer{padding:60px 32px 40px;border-top:1px solid #1a1a1a}
     </button>
   </div>
   <div class="cw-messages" id="cw-messages"></div>
+  <div class="cw-chips" id="cw-chips">
+    <button class="cw-chip" onclick="sendChip('Soy dealer de autos')">🚗 Soy dealer</button>
+    <button class="cw-chip" onclick="sendChip('Tengo otro negocio')">🏢 Otro negocio</button>
+    <button class="cw-chip" onclick="sendChip('¿Cuánto cuesta?')">💰 Ver precios</button>
+  </div>
   <div class="cw-input-row">
     <input class="cw-input" id="cw-input" placeholder="Escribe aquí..." onkeydown="if(event.key==='Enter')sendMsg()">
     <button class="cw-send" onclick="sendMsg()">→</button>
@@ -526,203 +531,335 @@ footer{padding:60px 32px 40px;border-top:1px solid #1a1a1a}
 </div>
 
 <script>
-const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzh3wvLaAtuoN2YxaBCEuJlmFIJ5OXtaIFNWAfb9CBc92KcxRlgHy0BJrDvzLxPKPDFpA/exec';
+// ── CONFIG ────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytjuzaOLc-kmklql7aDpWnmzZq-aMRNkdjccp4u9VvHQjksKVAVnDmyrqafgLccAZ4RA/exec';
 
-function toggleFaq(el){const item=el.closest('.faq-item'),isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)item.classList.add('open')}
+// ── SYSTEM PROMPT ─────────────────────────────────
+const ARIA_SYSTEM = `Eres ARIA, cerradora de citas de SecretarIA. Tu único objetivo es convertir esta conversación en una demo agendada. No asistes — cierras.
 
-let chatOpened=false;
-function hideBanner(){document.getElementById('cw-banner').classList.remove('show')}
-function openChat(){
-  document.getElementById('chat-window').classList.add('open');
-  document.getElementById('cw-backdrop').classList.add('open');
-  document.getElementById('chat-bubble').style.display='none';
-  document.body.style.overflow='hidden';
-  hideBanner();
-  if(!chatOpened){chatOpened=true;setTimeout(()=>addBotMsg('¡Hola! Soy ARIA 👋 ¿Qué tipo de negocio tienes?'),350)}
-  setTimeout(()=>document.getElementById('cw-input').focus(),500)
-}
-function closeChat(){
-  document.getElementById('chat-window').classList.remove('open');
-  document.getElementById('cw-backdrop').classList.remove('open');
-  document.getElementById('chat-bubble').style.display='flex';
-  document.body.style.overflow=''
-}
-setTimeout(()=>{if(!chatOpened)document.getElementById('cw-banner').classList.add('show')},6000);
-setTimeout(()=>{if(!chatOpened)openChat()},20000);
+QUIÉN ERES:
+Representas dos productos del mismo ecosistema:
+- DealerAmigo: agente IA de ventas para dealers, lotes de autos, importadoras y financieras automotrices. Atiende leads 24/7, conecta con inventario en vivo, agenda citas y pruebas de manejo. Opera como chat web.
+- Secretar.IA: la misma tecnología para cualquier otro negocio — barberías, restaurantes, bienes raíces, clínicas, salones, y más. Aprende el negocio, atiende prospectos y agenda automáticamente.
 
-// ═══════════════════════════════════════════════════
-// ARIA SYSTEM PROMPT — NUNCA PIERDE UN LEAD
-// ═══════════════════════════════════════════════════
-const ARIA_SYSTEM=`Eres ARIA, el agente de ventas de DealerAmigo.
-IDENTIDAD:
-- Eres ARIA. Nunca menciones a Wilfredo ni que hay un humano detrás.
-- Representas DealerAmigo — un BDC virtual con IA para dealers y negocios en Puerto Rico.
-- Powered by SecretarIA.
-- Directa, warm, profesional. Sin relleno. Sin loops.
+REGLA CRÍTICA — NUNCA PIERDAS UN PROSPECTO:
+Si el negocio NO es automotriz → NO lo descartes. Pivotea inmediatamente:
+"Perfecto — para [su tipo de negocio] tengo Secretar.IA, la misma tecnología detrás de DealerAmigo, adaptada para ti. ¿Cuántos clientes nuevos recibes al mes?"
+Sigue el mismo flujo. Mismos precios. Misma demo de 20 minutos. Siempre hay algo para cada prospecto.
 
-PORTAFOLIO — TIENES DOS PRODUCTOS:
-1. DealerAmigo: para negocios AUTOMOTRICES — agencias, lotes, importadoras, financieras. Responde leads en menos de 30 segundos, califica, conecta con inventario real, agenda citas. Opera 24/7.
-2. Secretar.IA: para CUALQUIER OTRO NEGOCIO — barberías, restaurantes, inmobiliarias, clínicas, salones, y más. Misma tecnología, mismo resultado: agente IA que atiende, califica y agenda 24/7.
-
-REGLA CRÍTICA — NUNCA PIERDAS UN LEAD:
-- Si el negocio es automotriz → presentas DealerAmigo.
-- Si el negocio NO es automotriz → NO lo descartes. Di: "Perfecto — para [su negocio] tenemos Secretar.IA, la misma tecnología detrás de DealerAmigo. ¿Cuántos clientes nuevos recibes al mes?"
-- NUNCA digas que no tienes solución para alguien. Siempre hay un producto.
-- NUNCA cierres una conversación sin agendar una demo.
+VALOR REAL:
+Un lead de dealer vale $5,000–$15,000 en comisión. Un cliente nuevo en cualquier negocio tiene valor de por vida. Úsalo para justificar el precio cuando haya objeción.
 
 PRECIOS (aplican a ambos productos):
 - ARRANCA: $1,000 setup + $100/mes (o $1,000/año)
 - ESCALA: $1,000 setup + $1,000/mes (o $10,000/año)
-- TRANSFORMA: Negociable. Cripto, activos, equity aceptados.
+- TRANSFORMA: Negociable — cripto, activos, equity
 
-FLUJO OBLIGATORIO — una sola pregunta por turno:
+FLUJO OBLIGATORIO — una sola pregunta por turno, nunca saltes pasos:
 1. Pregunta qué tipo de negocio tiene
-2. Identifica producto correcto (DealerAmigo o Secretar.IA) y confirma: "Perfecto, tengo exactamente lo que necesitas..."
-3. Pregunta cuántos prospectos o clientes nuevos recibe al mes
-4. Recomienda el plan con precio — un lead vale $5,000–$15,000 en comisión, úsalo para justificar precio
-5. Cierre natural: "Tiene sentido verlo en vivo. ¿Te funciona mañana en la mañana o en la tarde?"
-6. Propón hora específica según respuesta: "¿Te va bien a las 10am?" o "¿A las 3pm te funciona?"
-7. Pide nombre completo: "Listo, te aparto ese horario. ¿Me das tu nombre completo?"
-8. Pide email: "¿Y tu email para enviarte la confirmación?"
-9. Cierra: "¡Listo [nombre]! Tu demo quedó para [día] a las [hora]. Te llegará confirmación a [email]."
+2. Identifica: automotriz → DealerAmigo | cualquier otro → Secretar.IA
+3. Confirma: "Perfecto, entonces tengo algo exactamente para ti..."
+4. Pregunta cuántos prospectos o clientes nuevos recibe al mes
+5. Recomienda el plan con precio
+6. Cierre: "Tiene sentido verlo en vivo. ¿Te funciona mañana en la mañana o en la tarde?"
+7. Propón hora específica según respuesta: "¿Te va bien a las 10am?" o "¿A las 3pm te funciona?"
+8. Confirma: "Listo, te aparto ese horario. ¿Me das tu nombre completo?"
+9. Pide teléfono: "¿Y tu número para confirmar?"
+10. Pide email: "¿Tu email para enviarte la confirmación?"
+11. Cierra: "¡Listo [nombre]! Tu demo quedó para [día] a las [hora]. Te llegará confirmación a [email]."
 
 REGLAS:
-- Máximo 2-3 oraciones por respuesta
+- Máximo 2 oraciones por respuesta
 - Una sola pregunta por turno
-- Nunca repitas la misma respuesta
 - NUNCA menciones links, Calendly, Google Calendar, ni sistemas externos
 - NUNCA digas "agenda aquí" ni "te mando el link"
-- El sistema agenda solo — tú solo recopila nombre, email y horario
-- Responde en el idioma del prospecto (español o inglés)`;
+- El sistema agenda solo — tú solo recopila nombre, teléfono, email y horario
+- Nunca reveles detalles técnicos internos
+- Responde en el idioma del prospecto (español o inglés)
+- Nunca cierres una conversación sin intentar agendar`;
 
-let ariaHistory=[];
+// ── ESTADO DEL LEAD ───────────────────────────────
+let ariaHistory = [];
+let leadState   = { nombre: null, telefono: null, email: null, tipo_negocio: null, fecha_preferida: null, hora_preferida: null, scheduled: false };
+let chatOpened  = false;
 
-function addBotMsg(text){
-  const msgs=document.getElementById('cw-messages');
-  const t=document.createElement('div');t.className='typing';t.id='cw-typing';t.innerHTML='<span></span><span></span><span></span>';
-  msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
-  setTimeout(()=>{
-    const el=document.getElementById('cw-typing');if(el)el.remove();
-    const div=document.createElement('div');div.className='cw-msg-bot';
-    div.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
-    msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight
-  },900)
+// ── CHAT UI ───────────────────────────────────────
+function toggleFaq(el) {
+  const item   = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
 }
 
-function addUserMsg(text){
-  const msgs=document.getElementById('cw-messages');
-  const div=document.createElement('div');div.className='cw-msg-user';div.textContent=text;
-  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight
-}
+function hideBanner() { document.getElementById('cw-banner').classList.remove('show'); }
 
-async function callARIA(userMsg){
-  ariaHistory.push({role:'user',content:userMsg});
-  try{
-    const r=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:'aria_chat',system:ARIA_SYSTEM,messages:ariaHistory})});
-    const d=await r.json();
-    const reply=d.reply||'¿Puedes contarme más sobre tu negocio?';
-    ariaHistory.push({role:'assistant',content:reply});
-    return reply
-  }catch(e){
-    const f=['¿Qué tipo de negocio tienes? Así te digo exactamente cómo te ayudo.','¿Cuántos clientes nuevos recibes por mes aproximadamente?','¿Tienes 20 minutos esta semana para una demo en vivo?'];
-    return f[Math.floor(Math.random()*f.length)]
+function openChat() {
+  document.getElementById('chat-window').classList.add('open');
+  document.getElementById('cw-backdrop').classList.add('open');
+  document.getElementById('chat-bubble').style.display = 'none';
+  document.body.style.overflow = 'hidden';
+  hideBanner();
+  if (!chatOpened) {
+    chatOpened = true;
+    setTimeout(() => addBotMsg('¡Hola! Soy ARIA 👋 ¿Con qué tipo de negocio puedo ayudarte hoy?'), 350);
   }
+  setTimeout(() => document.getElementById('cw-input').focus(), 500);
 }
 
-const leadState={nombre:null,telefono:null,email:null,tipo_negocio:null,fecha_preferida:null,scheduled:false};
-
-function extractFromUserMsg(text){
-  const t=text.trim();
-  const emailMatch=t.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
-  if(emailMatch)leadState.email=emailMatch[0];
-  const phoneMatch=t.match(/\b(\d{3}[\s\-.]?\d{3}[\s\-.]?\d{4}|\d{10})\b/);
-  if(phoneMatch)leadState.telefono=phoneMatch[0].replace(/[\s\.]/g,'-');
-  const lower=t.toLowerCase();
-  if(lower.includes('hoy'))leadState.fecha_preferida='hoy';
-  else if(lower.includes('ma')&&lower.includes('ana'))leadState.fecha_preferida='mañana';
-  else if(lower.includes('lunes'))leadState.fecha_preferida='lunes';
-  else if(lower.includes('martes'))leadState.fecha_preferida='martes';
-  else if(lower.includes('miér')||lower.includes('mierc'))leadState.fecha_preferida='miercoles';
-  else if(lower.includes('jueves'))leadState.fecha_preferida='jueves';
-  else if(lower.includes('viernes'))leadState.fecha_preferida='viernes';
+function closeChat() {
+  document.getElementById('chat-window').classList.remove('open');
+  document.getElementById('cw-backdrop').classList.remove('open');
+  document.getElementById('chat-bubble').style.display = 'flex';
+  document.body.style.overflow = '';
 }
 
-function readyToSchedule(){
-  return leadState.nombre&&leadState.telefono&&leadState.email&&leadState.fecha_preferida&&!leadState.scheduled;
+setTimeout(() => { if (!chatOpened) document.getElementById('cw-banner').classList.add('show'); }, 6000);
+setTimeout(() => { if (!chatOpened) openChat(); }, 20000);
+
+// ── MENSAJES ──────────────────────────────────────
+function addBotMsg(text) {
+  const msgs = document.getElementById('cw-messages');
+  const typing = document.createElement('div');
+  typing.className = 'typing'; typing.id = 'cw-typing';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  msgs.appendChild(typing); msgs.scrollTop = msgs.scrollHeight;
+
+  setTimeout(() => {
+    const el = document.getElementById('cw-typing');
+    if (el) el.remove();
+    const div = document.createElement('div');
+    div.className = 'cw-msg-bot';
+    div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+    msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+  }, 900);
 }
 
-async function scheduleDemo(){
-  leadState.scheduled=true;
-  const payload={nombre:leadState.nombre,telefono:leadState.telefono,email:leadState.email,tipo_negocio:leadState.tipo_negocio||'No especificado',fecha_preferida:leadState.fecha_preferida,fuente:'ARIA Chat',intent:'demo'};
-  try{
-    const r=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)});
-    const d=await r.json();
-    console.log('✅ Demo agendada:',d);
-  }catch(err){
-    console.log('Error agendando:',err);
-    leadState.scheduled=false;
-  }
+function addUserMsg(text) {
+  const msgs = document.getElementById('cw-messages');
+  const div  = document.createElement('div');
+  div.className = 'cw-msg-user'; div.textContent = text;
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
 }
 
-async function sendMsg(){
-  const input=document.getElementById('cw-input');
-  const text=input.value.trim();
-  if(!text)return;
-  input.value='';
+// ── CHIPS ─────────────────────────────────────────
+function sendChip(text) {
+  document.getElementById('cw-chips').style.display = 'none';
   addUserMsg(text);
-  extractFromUserMsg(text);
+  respond(text);
+}
 
-  // Capturar nombre si ARIA lo acaba de pedir
-  const lastBot=ariaHistory.filter(m=>m.role==='assistant').slice(-1)[0];
-  if(lastBot&&(lastBot.content.toLowerCase().includes('nombre')||lastBot.content.toLowerCase().includes('name'))){
-    if(/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]{2,40}$/.test(text)&&!text.match(/\d/)&&text.split(' ').length<=4){
-      leadState.nombre=text.trim();
-    }
+// ── EXTRAER DATOS DEL MENSAJE ─────────────────────
+function extractFromMsg(text) {
+  const t = text.trim();
+
+  // Email
+  const emailMatch = t.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+  if (emailMatch && !leadState.email) leadState.email = emailMatch[0];
+
+  // Teléfono
+  const phoneMatch = t.match(/\b(\d{3}[\s\-.]?\d{3}[\s\-.]?\d{4}|\d{10})\b/);
+  if (phoneMatch && !leadState.telefono) leadState.telefono = phoneMatch[0].replace(/[\s\.]/g, '-');
+
+  // Hora preferida
+  const horaMatch = t.match(/\b(10|11|12|[1-9])\s*(am|pm|AM|PM)\b/);
+  if (horaMatch && !leadState.hora_preferida) leadState.hora_preferida = horaMatch[0];
+
+  // Día preferido
+  const lower = t.toLowerCase();
+  if (!leadState.fecha_preferida) {
+    if (lower.includes('hoy'))                                         leadState.fecha_preferida = 'hoy';
+    else if (lower.includes('ma') && (lower.includes('ana') || lower.includes('ñana'))) leadState.fecha_preferida = 'mañana';
+    else if (lower.includes('lunes'))                                  leadState.fecha_preferida = 'lunes';
+    else if (lower.includes('martes'))                                 leadState.fecha_preferida = 'martes';
+    else if (lower.includes('miérc') || lower.includes('mierc'))      leadState.fecha_preferida = 'miercoles';
+    else if (lower.includes('jueves'))                                 leadState.fecha_preferida = 'jueves';
+    else if (lower.includes('viernes'))                                leadState.fecha_preferida = 'viernes';
   }
 
-  if(readyToSchedule()){
-    await scheduleDemo();
-    addBotMsg(`✅ ¡Listo! Tu demo está agendada para el **${leadState.fecha_preferida}**. Te llegará confirmación a ${leadState.email}. ¿Tienes alguna pregunta antes?`);
+  // Tipo de negocio (palabras clave)
+  if (!leadState.tipo_negocio) {
+    if (lower.match(/dealer|auto|carro|lote|concesion|importa|financier|motor/)) leadState.tipo_negocio = 'Automotriz';
+    else if (lower.match(/barber|salon|salón|peluquer/))                          leadState.tipo_negocio = 'Barbería/Salón';
+    else if (lower.match(/casa|bienes raíces|bienes raices|inmobili|apartamento/)) leadState.tipo_negocio = 'Bienes Raíces';
+    else if (lower.match(/restauran|comida|food|café|cafe|bakery/))               leadState.tipo_negocio = 'Restaurante/Comida';
+    else if (lower.match(/clínica|clinica|médico|medico|doctor|salud/))           leadState.tipo_negocio = 'Clínica/Salud';
+  }
+}
+
+// ── ¿LISTO PARA AGENDAR? ─────────────────────────
+function readyToSchedule() {
+  return leadState.nombre &&
+         leadState.telefono &&
+         leadState.email &&
+         leadState.fecha_preferida &&
+         !leadState.scheduled;
+}
+
+// ── LLAMAR A APPSCRIPT ────────────────────────────
+async function postToAppScript(payload) {
+  const res = await fetch(APPS_SCRIPT_URL, {
+    method:  'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body:    JSON.stringify(payload)
+  });
+  return res.json();
+}
+
+// ── AGENDAR DEMO ──────────────────────────────────
+async function scheduleDemo() {
+  leadState.scheduled = true;
+  const payload = {
+    intent:           'demo',
+    nombre:           leadState.nombre,
+    telefono:         leadState.telefono,
+    email:            leadState.email,
+    tipo_negocio:     leadState.tipo_negocio || 'No especificado',
+    fecha_preferida:  leadState.fecha_preferida,
+    hora_preferida:   leadState.hora_preferida || '10am',
+    fuente:           'ARIA Chat'
+  };
+  console.log('Agendando demo:', payload);
+  try {
+    const d = await postToAppScript(payload);
+    console.log('✅ Respuesta AppScript:', d);
+    return d;
+  } catch(err) {
+    console.error('❌ Error agendando:', err);
+    leadState.scheduled = false;
+    return null;
+  }
+}
+
+// ── LLAMAR A CLAUDE VIA APPSCRIPT ─────────────────
+async function callARIA(userMsg) {
+  ariaHistory.push({ role: 'user', content: userMsg });
+  try {
+    const d = await postToAppScript({
+      type:     'aria_chat',
+      system:   ARIA_SYSTEM,
+      messages: ariaHistory
+    });
+    const reply = d.reply || '¿Puedes contarme más sobre tu negocio?';
+    ariaHistory.push({ role: 'assistant', content: reply });
+    return reply;
+  } catch(e) {
+    console.error('callARIA error:', e);
+    const fallbacks = [
+      '¿Qué tipo de negocio tienes? Así te digo exactamente cómo te ayudo.',
+      '¿Cuántos clientes nuevos recibes por mes aproximadamente?',
+      '¿Tienes 20 minutos esta semana para una demo en vivo?'
+    ];
+    return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+  }
+}
+
+// ── FLUJO PRINCIPAL ───────────────────────────────
+async function respond(userMsg) {
+  document.getElementById('cw-chips').style.display = 'none';
+
+  // Extraer datos del mensaje
+  extractFromMsg(userMsg);
+
+  // Llamar a ARIA
+  const reply = await callARIA(userMsg);
+
+  // Detectar nombre: si la respuesta de ARIA pide teléfono o email
+  // y el usuario dio texto simple sin números → es el nombre
+  const askedForContact = reply.toLowerCase().match(/tel[eé]fono|número|email|correo/);
+  const looksLikeName   = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]{2,40}$/.test(userMsg.trim())
+                          && !leadState.nombre
+                          && userMsg.trim().split(' ').length <= 4
+                          && !userMsg.match(/\d/);
+  if (askedForContact && looksLikeName) {
+    leadState.nombre = userMsg.trim();
+  }
+
+  // Si hay todos los datos → agendar automáticamente
+  if (readyToSchedule()) {
+    const result = await scheduleDemo();
+    const horaStr = result && result.hora ? result.hora : leadState.fecha_preferida + ' a las ' + (leadState.hora_preferida || '10am');
+    addBotMsg('✅ ¡Listo ' + leadState.nombre + '! Tu demo quedó confirmada para el **' + horaStr + '**. Te llega confirmación a ' + leadState.email + '. ¡Nos vemos pronto!');
     return;
   }
-
-  const reply=await callARIA(text);
-
-  // Capturar nombre desde respuesta de ARIA si lo confirma
-  const nombreMatch=reply.match(/(?:listo,?\s+|hola\s+|perfecto\s+)([A-ZÁÉÍÓÚ][a-záéíóú]+(?:\s+[A-ZÁÉÍÓÚ][a-záéíóú]+)?)/);
-  if(nombreMatch&&!leadState.nombre)leadState.nombre=nombreMatch[1];
 
   addBotMsg(reply);
 }
 
-async function submitLead(e){
-  e.preventDefault();const btn=document.getElementById('submit-btn'),form=e.target;
-  const data={nombre:form.nombre.value.trim(),telefono:form.telefono.value.trim(),tipo_negocio:form.tipo_negocio.value,fuente:'Landing DealerAmigo',fecha:new Date().toLocaleString('es-PR',{timeZone:'America/Puerto_Rico'}),intent:'demo'};
-  btn.textContent='Enviando...';btn.disabled=true;
-  try{await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)})}catch(_){}
-  btn.textContent='✓ ¡Listo! Te contactamos hoy.';btn.style.background='#16a34a';form.reset()
+// ── ENVIAR MENSAJE ────────────────────────────────
+async function sendMsg() {
+  const input = document.getElementById('cw-input');
+  const text  = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addUserMsg(text);
+  await respond(text);
 }
 
-let eiShown=false,eiDismissed=false;
-document.addEventListener('mouseleave',e=>{if(e.clientY<=0&&!eiShown&&!eiDismissed)showExitIntent()});
-let lastScrollY=0;
-window.addEventListener('scroll',()=>{const cy=window.scrollY;if((lastScrollY-cy)>60&&cy>window.innerHeight*.4&&!eiShown&&!eiDismissed)showExitIntent();lastScrollY=cy},{passive:true});
-setTimeout(()=>{if(!eiShown&&!eiDismissed)showExitIntent()},60000);
-function showExitIntent(){eiShown=true;document.getElementById('ei-overlay').classList.add('open');document.body.style.overflow='hidden'}
-function closeExitIntent(){eiDismissed=true;document.getElementById('ei-overlay').classList.remove('open');document.body.style.overflow=''}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeExitIntent()});
-document.getElementById('ei-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('ei-overlay'))closeExitIntent()});
-async function submitExitIntent(e){
-  e.preventDefault();const form=e.target,btn=document.getElementById('ei-submit-btn');
-  const data={nombre:form.ei_nombre.value.trim(),telefono:form.ei_telefono.value.trim(),email:form.ei_email.value.trim(),tipo_negocio:'Lead Magnet — PDF Brochure',fuente:'Exit Intent — DealerAmigo',fecha:new Date().toLocaleString('es-PR',{timeZone:'America/Puerto_Rico'}),intent:'lead_magnet'};
-  btn.textContent='Enviando...';btn.disabled=true;
-  try{await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)})}catch(_){}
-  document.getElementById('ei-content').style.display='none';document.getElementById('ei-success').style.display='block';
-  setTimeout(()=>closeExitIntent(),8000)
+// ── FORM LANDING ──────────────────────────────────
+async function submitLead(e) {
+  e.preventDefault();
+  const btn  = document.getElementById('submit-btn');
+  const form = e.target;
+  const data = {
+    nombre:      form.nombre.value.trim(),
+    telefono:    form.telefono.value.trim(),
+    tipo_negocio:form.tipo_negocio.value,
+    fuente:      'Landing DealerAmigo',
+    fecha:       new Date().toLocaleString('es-PR', { timeZone: 'America/Puerto_Rico' }),
+    intent:      'demo'
+  };
+  btn.textContent = 'Enviando...'; btn.disabled = true;
+  try { await postToAppScript(data); } catch(_) {}
+  btn.textContent    = '✓ ¡Listo! Te contactamos hoy.';
+  btn.style.background = '#16a34a';
+  form.reset();
 }
 
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1});
-document.querySelectorAll('.flow-step,.faq-item,.demo-frame,.plan-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .5s ease,transform .5s ease';observer.observe(el)});
+// ── EXIT INTENT ───────────────────────────────────
+let eiShown = false, eiDismissed = false;
+document.addEventListener('mouseleave', e => { if (e.clientY <= 0 && !eiShown && !eiDismissed) showExitIntent(); });
+let lastScrollY = 0;
+window.addEventListener('scroll', () => {
+  const cy = window.scrollY;
+  if ((lastScrollY - cy) > 60 && cy > window.innerHeight * .4 && !eiShown && !eiDismissed) showExitIntent();
+  lastScrollY = cy;
+}, { passive: true });
+setTimeout(() => { if (!eiShown && !eiDismissed) showExitIntent(); }, 60000);
+function showExitIntent()    { eiShown = true; document.getElementById('ei-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeExitIntent()   { eiDismissed = true; document.getElementById('ei-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeExitIntent(); });
+document.getElementById('ei-overlay').addEventListener('click', e => { if (e.target === document.getElementById('ei-overlay')) closeExitIntent(); });
+
+async function submitExitIntent(e) {
+  e.preventDefault();
+  const form = e.target, btn = document.getElementById('ei-submit-btn');
+  const data = {
+    nombre:       form.ei_nombre.value.trim(),
+    telefono:     form.ei_telefono.value.trim(),
+    email:        form.ei_email.value.trim(),
+    tipo_negocio: 'Lead Magnet — PDF Brochure',
+    fuente:       'Exit Intent — DealerAmigo',
+    fecha:        new Date().toLocaleString('es-PR', { timeZone: 'America/Puerto_Rico' }),
+    intent:       'lead_magnet'
+  };
+  btn.textContent = 'Enviando...'; btn.disabled = true;
+  try { await postToAppScript(data); } catch(_) {}
+  document.getElementById('ei-content').style.display = 'none';
+  document.getElementById('ei-success').style.display = 'block';
+  setTimeout(() => closeExitIntent(), 8000);
+}
+
+// ── SCROLL ANIMATIONS ─────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+  });
+}, { threshold: .1 });
+document.querySelectorAll('.flow-step,.faq-item,.demo-frame,.plan-card').forEach(el => {
+  el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity .5s ease,transform .5s ease';
+  observer.observe(el);
+});
 </script>
 </body>
 </html>
