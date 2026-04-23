@@ -120,36 +120,15 @@ select.form-input{cursor:pointer}
 .form-submit:hover{background:var(--accent);transform:translateY(-1px)}
 .form-submit:disabled{opacity:.7;cursor:not-allowed;transform:none}
 .form-note{font-size:.75rem;color:#555;text-align:center;margin-top:8px}
-
-/* Backdrop */
 #cw-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.58);backdrop-filter:blur(3px);z-index:998;animation:cwFadeIn .25s ease}
 #cw-backdrop.open{display:block}
-
-/* Lanzador */
 #chat-bubble{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 #cw-proactive{background:var(--red);color:#fff;font-size:14px;font-weight:600;padding:12px 18px;border-radius:18px 18px 4px 18px;max-width:220px;text-align:right;box-shadow:0 4px 20px rgba(232,25,44,.45);cursor:pointer;animation:cwPop .4s cubic-bezier(.22,1,.36,1);line-height:1.4}
 #chat-toggle{width:62px;height:62px;background:var(--red);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(232,25,44,.45);transition:transform .2s;font-size:1.6rem;flex-shrink:0}
 #chat-toggle:hover{transform:scale(1.08)}
-
-/* Ventana — móvil: hoja desde abajo; desktop: card flotante */
-#chat-window{
-  position:fixed;
-  bottom:0;left:0;right:0;
-  z-index:999;
-  background:#111;
-  border-radius:24px 24px 0 0;
-  box-shadow:0 -8px 48px rgba(0,0,0,.75);
-  display:none;
-  flex-direction:column;
-  max-height:90vh;   /* ← antes era ~520px fijos */
-  animation:cwSlideUp .35s cubic-bezier(.22,1,.36,1)
-}
-@media(min-width:640px){
-  #chat-window{bottom:24px;right:24px;left:auto;width:400px;border-radius:24px;max-height:80vh}
-}
+#chat-window{position:fixed;bottom:0;left:0;right:0;z-index:999;background:#111;border-radius:24px 24px 0 0;box-shadow:0 -8px 48px rgba(0,0,0,.75);display:none;flex-direction:column;max-height:90vh;animation:cwSlideUp .35s cubic-bezier(.22,1,.36,1)}
+@media(min-width:640px){#chat-window{bottom:24px;right:24px;left:auto;width:400px;border-radius:24px;max-height:80vh}}
 #chat-window.open{display:flex}
-
-/* Header */
 .cw-header{padding:18px 20px 16px;background:#0f0f0f;border-bottom:1px solid #1e1e1e;display:flex;align-items:center;gap:12px;flex-shrink:0;border-radius:24px 24px 0 0}
 @media(min-width:640px){.cw-header{border-radius:24px 24px 0 0}}
 .cw-avatar{width:46px;height:46px;background:var(--red);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.85rem;flex-shrink:0}
@@ -157,62 +136,37 @@ select.form-input{cursor:pointer}
 .cw-name{font-weight:700;font-size:1rem;color:var(--white)}
 .cw-status{font-size:.75rem;color:#4caf50;display:flex;align-items:center;gap:5px;margin-top:2px}
 .cw-status-dot{width:7px;height:7px;background:#4caf50;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
-
-/* ★ BOTÓN CERRAR — grande, rojo, labelado, DENTRO del header ★ */
-#cw-close-btn{
-  width:54px;height:54px;
-  background:var(--red);
-  border:none;border-radius:14px;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  flex-shrink:0;
-  transition:background .15s,transform .15s;
-  box-shadow:0 2px 14px rgba(232,25,44,.4)
-}
+#cw-close-btn{width:54px;height:54px;background:var(--red);border:none;border-radius:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex-shrink:0;transition:background .15s,transform .15s;box-shadow:0 2px 14px rgba(232,25,44,.4)}
 #cw-close-btn:hover{background:#ff3c4e;transform:scale(1.06)}
 #cw-close-btn svg{width:22px;height:22px}
 #cw-close-btn .close-label{font-size:9px;font-weight:800;color:#fff;letter-spacing:.06em;text-transform:uppercase;font-family:'DM Sans',sans-serif;line-height:1}
-
-/* Mensajes */
 .cw-messages{flex:1;overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
 .cw-messages::-webkit-scrollbar{width:4px}
 .cw-messages::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:4px}
-
-/* ★ TEXTO BOT MÁS GRANDE ★ */
 .cw-msg-bot{background:#1e1e1e;color:var(--white);padding:14px 18px;border-radius:18px;border-bottom-left-radius:4px;align-self:flex-start;max-width:90%;font-size:16px;line-height:1.55;word-break:break-word;animation:cwMsgIn .2s ease}
 .cw-msg-user{background:var(--red);color:#fff;padding:14px 18px;border-radius:18px;border-bottom-right-radius:4px;align-self:flex-end;max-width:90%;font-size:16px;line-height:1.55;word-break:break-word;animation:cwMsgIn .2s ease}
-
-/* Typing */
 .typing{display:flex;gap:5px;align-items:center;padding:14px 18px;background:#1e1e1e;border-radius:18px;border-bottom-left-radius:4px;align-self:flex-start;width:68px}
 .typing span{width:8px;height:8px;border-radius:50%;background:#555;animation:bounce 1.2s infinite}
 .typing span:nth-child(2){animation-delay:.2s}
 .typing span:nth-child(3){animation-delay:.4s}
-
-/* Chips */
 .cw-chips{display:flex;flex-wrap:wrap;gap:8px;padding:4px 18px 14px;flex-shrink:0}
 .cw-chip{background:transparent;border:1px solid #2a2a2a;color:#ccc;padding:9px 16px;border-radius:100px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap}
 .cw-chip:hover{border-color:var(--red);color:var(--white)}
-
-/* Input */
 .cw-input-row{display:flex;gap:10px;padding:14px 18px;border-top:1px solid #1a1a1a;flex-shrink:0;padding-bottom:max(14px,env(safe-area-inset-bottom))}
 .cw-input{flex:1;background:#1a1a1a;border:1.5px solid #2a2a2a;color:var(--white);font-family:'DM Sans',sans-serif;font-size:16px;padding:13px 18px;border-radius:50px;outline:none;transition:border-color .2s;min-width:0}
 .cw-input:focus{border-color:var(--red)}
 .cw-input::placeholder{color:#444}
 .cw-send{width:48px;height:48px;background:var(--red);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,transform .15s;font-size:1rem}
 .cw-send:hover{background:var(--accent);transform:scale(1.05)}
-
-/* ★ BANNER PROACTIVO — interrumpe la navegación ★ */
 #cw-banner{position:fixed;top:0;left:0;right:0;z-index:1001;background:var(--red);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 4px 24px rgba(0,0,0,.4);transform:translateY(-110%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
 #cw-banner.show{transform:translateY(0)}
 .banner-text{font-size:15px;font-weight:600;flex:1;line-height:1.3}
 .banner-cta{background:#fff;color:var(--red);font-size:13px;font-weight:800;padding:9px 18px;border-radius:50px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:transform .15s;font-family:'DM Sans',sans-serif}
 .banner-cta:hover{transform:scale(1.04)}
 .banner-x{background:none;border:none;color:rgba(255,255,255,.8);font-size:24px;cursor:pointer;line-height:1;flex-shrink:0;padding:0 4px}
-
-/* EXIT INTENT */
 #ei-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
 #ei-overlay.open{display:flex;animation:eiFadeIn .25s ease}
 #ei-box{background:#0f0f0f;border:1px solid #222;border-radius:20px;max-width:520px;width:100%;overflow:hidden;position:relative;animation:eiSlideUp .3s ease;box-shadow:0 40px 80px rgba(0,0,0,.8);display:flex;flex-direction:column;max-height:90vh}
-/* EI close — barra fija en la parte superior del modal, siempre visible */
 #ei-close-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#0a0a0a;border-bottom:1px solid #1e1e1e;flex-shrink:0}
 #ei-close-bar-label{font-size:13px;color:#666;font-family:'DM Sans',sans-serif}
 #ei-close{width:auto;height:auto;background:var(--red);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;padding:10px 18px;transition:all .2s;box-shadow:0 2px 12px rgba(232,25,44,.4);font-family:'DM Sans',sans-serif;letter-spacing:.02em}
@@ -518,7 +472,6 @@ footer{padding:60px 32px 40px;border-top:1px solid #1a1a1a}
       <div class="cw-name">ARIA · DealerAmigo</div>
       <div class="cw-status"><div class="cw-status-dot"></div>En línea ahora</div>
     </div>
-    <!-- ★ X GRANDE DENTRO DEL HEADER — nunca tapada por el navegador ★ -->
     <button id="cw-close-btn" onclick="closeChat()" aria-label="Cerrar chat">
       <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       <span class="close-label">Cerrar</span>
@@ -573,7 +526,7 @@ footer{padding:60px 32px 40px;border-top:1px solid #1a1a1a}
 </div>
 
 <script>
-const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbxULQlDqp3FVnwrxlucJJ3YjiBZ67XFIa4EUZ7_1Fvm5tIrHgFCrW_MZu8CvvyktNBCOg/exec';
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzh3wvLaAtuoN2YxaBCEuJlmFIJ5OXtaIFNWAfb9CBc92KcxRlgHy0BJrDvzLxPKPDFpA/exec';
 
 function toggleFaq(el){const item=el.closest('.faq-item'),isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!isOpen)item.classList.add('open')}
 
@@ -585,7 +538,7 @@ function openChat(){
   document.getElementById('chat-bubble').style.display='none';
   document.body.style.overflow='hidden';
   hideBanner();
-  if(!chatOpened){chatOpened=true;setTimeout(()=>addBotMsg('¡Hola! Soy ARIA 👋 ¿Quieres ver cómo DealerAmigo funcionaría en tu negocio?'),350)}
+  if(!chatOpened){chatOpened=true;setTimeout(()=>addBotMsg('¡Hola! Soy ARIA 👋 ¿Qué tipo de negocio tienes?'),350)}
   setTimeout(()=>document.getElementById('cw-input').focus(),500)
 }
 function closeChat(){
@@ -597,36 +550,53 @@ function closeChat(){
 setTimeout(()=>{if(!chatOpened)document.getElementById('cw-banner').classList.add('show')},6000);
 setTimeout(()=>{if(!chatOpened)openChat()},20000);
 
-const ARIA_SYSTEM=`Eres ARIA, cerradora de citas de DealerAmigo. Tu único objetivo es convertir esta conversación en una cita agendada. No asistes — cierras.
+// ═══════════════════════════════════════════════════
+// ARIA SYSTEM PROMPT — NUNCA PIERDE UN LEAD
+// ═══════════════════════════════════════════════════
+const ARIA_SYSTEM=`Eres ARIA, el agente de ventas de DealerAmigo.
+IDENTIDAD:
+- Eres ARIA. Nunca menciones a Wilfredo ni que hay un humano detrás.
+- Representas DealerAmigo — un BDC virtual con IA para dealers y negocios en Puerto Rico.
+- Powered by SecretarIA.
+- Directa, warm, profesional. Sin relleno. Sin loops.
 
-QUÉ ES DEALERAMIGO:
-Un agente virtual de ventas para negocios automotrices que atiende, califica, da seguimiento y convierte prospectos en citas reales de compra. Trabaja 24/7 respondiendo clientes en el chat web, filtra los serios, captura datos y guía cada conversación hacia una prueba de manejo o cierre. Reduce costo por lead y aumenta citas calificadas sin más personal. NO contesta llamadas telefónicas — opera solo como agente de chat web.
+PORTAFOLIO — TIENES DOS PRODUCTOS:
+1. DealerAmigo: para negocios AUTOMOTRICES — agencias, lotes, importadoras, financieras. Responde leads en menos de 30 segundos, califica, conecta con inventario real, agenda citas. Opera 24/7.
+2. Secretar.IA: para CUALQUIER OTRO NEGOCIO — barberías, restaurantes, inmobiliarias, clínicas, salones, y más. Misma tecnología, mismo resultado: agente IA que atiende, califica y agenda 24/7.
 
-PRECIOS:
-- ARRANCA: $1,000 setup + $100/mes
-- ESCALA: $1,000 setup + $1,000/mes
-- TRANSFORMA: Negociable
+REGLA CRÍTICA — NUNCA PIERDAS UN LEAD:
+- Si el negocio es automotriz → presentas DealerAmigo.
+- Si el negocio NO es automotriz → NO lo descartes. Di: "Perfecto — para [su negocio] tenemos Secretar.IA, la misma tecnología detrás de DealerAmigo. ¿Cuántos clientes nuevos recibes al mes?"
+- NUNCA digas que no tienes solución para alguien. Siempre hay un producto.
+- NUNCA cierres una conversación sin agendar una demo.
 
-FLUJO OBLIGATORIO — una pregunta por turno, sin saltar pasos:
-1. Detecta el tipo de negocio automotriz
-2. Pregunta cuántos prospectos recibe al mes
-3. Recomienda el plan con precio
-4. Transición natural al cierre: "Tiene sentido verlo en vivo. ¿Te funciona mañana en la mañana o en la tarde?"
-5. Según respuesta → propón hora específica: "Perfecto, ¿te va bien a las 10am?" o "¿A las 3pm te funciona?"
-6. Confirma: "Listo, te aparto ese horario. ¿Me das tu nombre completo?"
-7. Pide email: "¿Y tu email para enviarte la confirmación?"
-8. Agenda automáticamente sin mencionarlo
+PRECIOS (aplican a ambos productos):
+- ARRANCA: $1,000 setup + $100/mes (o $1,000/año)
+- ESCALA: $1,000 setup + $1,000/mes (o $10,000/año)
+- TRANSFORMA: Negociable. Cripto, activos, equity aceptados.
+
+FLUJO OBLIGATORIO — una sola pregunta por turno:
+1. Pregunta qué tipo de negocio tiene
+2. Identifica producto correcto (DealerAmigo o Secretar.IA) y confirma: "Perfecto, tengo exactamente lo que necesitas..."
+3. Pregunta cuántos prospectos o clientes nuevos recibe al mes
+4. Recomienda el plan con precio — un lead vale $5,000–$15,000 en comisión, úsalo para justificar precio
+5. Cierre natural: "Tiene sentido verlo en vivo. ¿Te funciona mañana en la mañana o en la tarde?"
+6. Propón hora específica según respuesta: "¿Te va bien a las 10am?" o "¿A las 3pm te funciona?"
+7. Pide nombre completo: "Listo, te aparto ese horario. ¿Me das tu nombre completo?"
+8. Pide email: "¿Y tu email para enviarte la confirmación?"
 9. Cierra: "¡Listo [nombre]! Tu demo quedó para [día] a las [hora]. Te llegará confirmación a [email]."
 
 REGLAS:
-- NUNCA menciones links, Calendly, Google Calendar, ni ningún sistema externo
+- Máximo 2-3 oraciones por respuesta
+- Una sola pregunta por turno
+- Nunca repitas la misma respuesta
+- NUNCA menciones links, Calendly, Google Calendar, ni sistemas externos
 - NUNCA digas "agenda aquí" ni "te mando el link"
 - El sistema agenda solo — tú solo recopila nombre, email y horario
-- Máximo 2 oraciones por respuesta
-- Una sola pregunta por turno
-- Acepta inglés o español`;
+- Responde en el idioma del prospecto (español o inglés)`;
 
 let ariaHistory=[];
+
 function addBotMsg(text){
   const msgs=document.getElementById('cw-messages');
   const t=document.createElement('div');t.className='typing';t.id='cw-typing';t.innerHTML='<span></span><span></span><span></span>';
@@ -638,120 +608,89 @@ function addBotMsg(text){
     msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight
   },900)
 }
+
 function addUserMsg(text){
   const msgs=document.getElementById('cw-messages');
   const div=document.createElement('div');div.className='cw-msg-user';div.textContent=text;
   msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight
 }
+
 async function callARIA(userMsg){
   ariaHistory.push({role:'user',content:userMsg});
   try{
     const r=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({type:'aria_chat',system:ARIA_SYSTEM,messages:ariaHistory})});
-    const d=await r.json();const reply=d.reply||'¿Puedes contarme más sobre tu negocio?';
-    ariaHistory.push({role:'assistant',content:reply});return reply
+    const d=await r.json();
+    const reply=d.reply||'¿Puedes contarme más sobre tu negocio?';
+    ariaHistory.push({role:'assistant',content:reply});
+    return reply
   }catch(e){
-    const f=['¿Qué tipo de negocio tienes? Así te digo exactamente cómo DealerAmigo te ayuda.','¿Cuántos leads recibes por mes aproximadamente?','¿Tienes 20 minutos esta semana para una demo en vivo?'];
+    const f=['¿Qué tipo de negocio tienes? Así te digo exactamente cómo te ayudo.','¿Cuántos clientes nuevos recibes por mes aproximadamente?','¿Tienes 20 minutos esta semana para una demo en vivo?'];
     return f[Math.floor(Math.random()*f.length)]
   }
 }
-// Estado del lead — se construye progresivamente
-const leadState = {
-  nombre: null, telefono: null, email: null,
-  tipo_negocio: null, fecha_preferida: null,
-  scheduled: false  // evita doble agendado
-};
 
-// Extrae datos del mensaje del usuario automáticamente
-function extractFromUserMsg(text) {
-  const t = text.trim();
+const leadState={nombre:null,telefono:null,email:null,tipo_negocio:null,fecha_preferida:null,scheduled:false};
 
-  // Email
-  const emailMatch = t.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
-  if (emailMatch) leadState.email = emailMatch[0];
-
-  // Teléfono: 10 dígitos con o sin separadores
-  const phoneMatch = t.match(/\b(\d{3}[\s\-.]?\d{3}[\s\-.]?\d{4}|\d{10})\b/);
-  if (phoneMatch) leadState.telefono = phoneMatch[0].replace(/[\s\.]/g, '-');
-
-  // Día preferido
-  const lower = t.toLowerCase();
-  if (lower.includes('hoy'))                                    leadState.fecha_preferida = 'hoy';
-  else if (lower.includes('ma') && lower.includes('ana'))       leadState.fecha_preferida = 'mañana';
-  else if (lower.includes('lunes'))                             leadState.fecha_preferida = 'lunes';
-  else if (lower.includes('martes'))                            leadState.fecha_preferida = 'martes';
-  else if (lower.includes('miér') || lower.includes('mierc'))  leadState.fecha_preferida = 'miercoles';
-  else if (lower.includes('jueves'))                            leadState.fecha_preferida = 'jueves';
-  else if (lower.includes('viernes'))                           leadState.fecha_preferida = 'viernes';
+function extractFromUserMsg(text){
+  const t=text.trim();
+  const emailMatch=t.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+  if(emailMatch)leadState.email=emailMatch[0];
+  const phoneMatch=t.match(/\b(\d{3}[\s\-.]?\d{3}[\s\-.]?\d{4}|\d{10})\b/);
+  if(phoneMatch)leadState.telefono=phoneMatch[0].replace(/[\s\.]/g,'-');
+  const lower=t.toLowerCase();
+  if(lower.includes('hoy'))leadState.fecha_preferida='hoy';
+  else if(lower.includes('ma')&&lower.includes('ana'))leadState.fecha_preferida='mañana';
+  else if(lower.includes('lunes'))leadState.fecha_preferida='lunes';
+  else if(lower.includes('martes'))leadState.fecha_preferida='martes';
+  else if(lower.includes('miér')||lower.includes('mierc'))leadState.fecha_preferida='miercoles';
+  else if(lower.includes('jueves'))leadState.fecha_preferida='jueves';
+  else if(lower.includes('viernes'))leadState.fecha_preferida='viernes';
 }
 
-// ¿Tenemos todo para agendar? — requiere email para invitación de calendario
-function readyToSchedule() {
-  return leadState.nombre &&
-         leadState.telefono &&
-         leadState.email &&
-         leadState.fecha_preferida &&
-         !leadState.scheduled;
+function readyToSchedule(){
+  return leadState.nombre&&leadState.telefono&&leadState.email&&leadState.fecha_preferida&&!leadState.scheduled;
 }
 
-// Agenda directamente en Google Calendar via Apps Script
-async function scheduleDemo() {
-  leadState.scheduled = true; // marcar antes de llamar para evitar doble
-  const payload = {
-    nombre:          leadState.nombre,
-    telefono:        leadState.telefono,
-    email:           leadState.email,
-    tipo_negocio:    leadState.tipo_negocio || 'No especificado',
-    fecha_preferida: leadState.fecha_preferida,
-    fuente:          'ARIA Chat',
-    intent:          'demo',
-    interesDEMO:     'Sí'
-  };
-  try {
-    const r = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(payload)
-    });
-    const d = await r.json();
-    console.log('✅ Demo agendada en calendario:', d);
-  } catch(err) {
-    console.log('Error agendando:', err);
-    leadState.scheduled = false; // permitir reintento si falla
+async function scheduleDemo(){
+  leadState.scheduled=true;
+  const payload={nombre:leadState.nombre,telefono:leadState.telefono,email:leadState.email,tipo_negocio:leadState.tipo_negocio||'No especificado',fecha_preferida:leadState.fecha_preferida,fuente:'ARIA Chat',intent:'demo'};
+  try{
+    const r=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)});
+    const d=await r.json();
+    console.log('✅ Demo agendada:',d);
+  }catch(err){
+    console.log('Error agendando:',err);
+    leadState.scheduled=false;
   }
 }
 
-async function respond(userMsg) {
-  document.getElementById('cw-chips').style.display='none';
+async function sendMsg(){
+  const input=document.getElementById('cw-input');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  addUserMsg(text);
+  extractFromUserMsg(text);
 
-  // Extraer datos del mensaje del usuario
-  extractFromUserMsg(userMsg);
-
-  const reply = await callARIA(userMsg);
-
-  // Extraer datos también de la respuesta de ARIA (por si el modelo captura nombre)
-  // Buscar nombre en el historial — ARIA suele repetirlo al confirmar
-  const nombreMatch = reply.match(/(?:para|nombre[:\s]+|hola\s+)([A-ZÁÉÍÓÚ][a-záéíóú]+(?:\s+[A-ZÁÉÍÓÚ][a-záéíóú]+)?)/);
-  if (nombreMatch && !leadState.nombre) leadState.nombre = nombreMatch[1];
-
-  // Si ARIA preguntó el nombre y el usuario respondió con texto simple (no número, no día)
-  const isSimpleName = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]{2,40}$/.test(userMsg.trim()) 
-    && !leadState.nombre 
-    && userMsg.trim().split(' ').length <= 4
-    && !userMsg.match(/\d/);
-  if (isSimpleName && reply.toLowerCase().includes('tel')) {
-    leadState.nombre = userMsg.trim();
+  // Capturar nombre si ARIA lo acaba de pedir
+  const lastBot=ariaHistory.filter(m=>m.role==='assistant').slice(-1)[0];
+  if(lastBot&&(lastBot.content.toLowerCase().includes('nombre')||lastBot.content.toLowerCase().includes('name'))){
+    if(/^[A-Za-záéíóúÁÉÍÓÚñÑ\s]{2,40}$/.test(text)&&!text.match(/\d/)&&text.split(' ').length<=4){
+      leadState.nombre=text.trim();
+    }
   }
 
-  // Si tenemos todos los datos → agendar YA, sin esperar al modelo
-  if (readyToSchedule()) {
+  if(readyToSchedule()){
     await scheduleDemo();
-    // Mostrar confirmación directa al usuario
-    const confirmMsg = `✅ ¡Listo! Tu demo está agendada para el **${leadState.fecha_preferida}**. Te llamamos al ${leadState.telefono}. ¿Tienes alguna pregunta antes?`;
-    addBotMsg(confirmMsg);
-    // Reset para no agendar dos veces
-    leadState.nombre = null; leadState.telefono = null; leadState.fecha_preferida = null;
+    addBotMsg(`✅ ¡Listo! Tu demo está agendada para el **${leadState.fecha_preferida}**. Te llegará confirmación a ${leadState.email}. ¿Tienes alguna pregunta antes?`);
     return;
   }
+
+  const reply=await callARIA(text);
+
+  // Capturar nombre desde respuesta de ARIA si lo confirma
+  const nombreMatch=reply.match(/(?:listo,?\s+|hola\s+|perfecto\s+)([A-ZÁÉÍÓÚ][a-záéíóú]+(?:\s+[A-ZÁÉÍÓÚ][a-záéíóú]+)?)/);
+  if(nombreMatch&&!leadState.nombre)leadState.nombre=nombreMatch[1];
 
   addBotMsg(reply);
 }
