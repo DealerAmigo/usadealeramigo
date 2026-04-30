@@ -480,18 +480,13 @@ footer{padding:60px 32px 40px;border-top:1px solid #1a1a1a}
 </div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyz6LIxi4cNrPFmeh1a8zDTHMRVedEmWa-eAsmMsuNr50ced7LBs87JOU9NwOK5UYN0/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxdYurQRC5j7M661a9MUQd94OOtQLIbTD_xR5NNNhydxHoZ9fygC38y2KMcJUn89hdi/exec';
 
-// ── ESTADO DEL LEAD ───────────────────────────────
 let ariaHistory = [];
-let leadState   = { nombre: null, telefono: null, email: null, tipo_negocio: null, fecha_preferida: null, hora_preferida: null, scheduled: false };
 let chatOpened  = false;
 
-// ── CHAT UI ───────────────────────────────────────
 function toggleFaq(el) {
-  const item   = el.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
+  const item = el.closest('.faq-item'), isOpen = item.classList.contains('open');
   document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
 }
@@ -521,175 +516,59 @@ function closeChat() {
 setTimeout(() => { if (!chatOpened) document.getElementById('cw-banner').classList.add('show'); }, 6000);
 setTimeout(() => { if (!chatOpened) openChat(); }, 20000);
 
-// ── MENSAJES ──────────────────────────────────────
 function addBotMsg(text) {
   const msgs = document.getElementById('cw-messages');
   const typing = document.createElement('div');
   typing.className = 'typing'; typing.id = 'cw-typing';
   typing.innerHTML = '<span></span><span></span><span></span>';
   msgs.appendChild(typing); msgs.scrollTop = msgs.scrollHeight;
-
   setTimeout(() => {
     const el = document.getElementById('cw-typing');
     if (el) el.remove();
     const div = document.createElement('div');
     div.className = 'cw-msg-bot';
-    div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+    div.innerHTML = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
     msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
   }, 900);
 }
 
 function addUserMsg(text) {
   const msgs = document.getElementById('cw-messages');
-  const div  = document.createElement('div');
+  const div = document.createElement('div');
   div.className = 'cw-msg-user'; div.textContent = text;
   msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
 }
 
-// ── CHIPS ─────────────────────────────────────────
 function sendChip(text) {
   document.getElementById('cw-chips').style.display = 'none';
   addUserMsg(text);
   respond(text);
 }
 
-// ── EXTRAER DATOS DEL MENSAJE ─────────────────────
-function extractFromMsg(text) {
-  const t = text.trim();
-
-  // Email
-  const emailMatch = t.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
-  if (emailMatch && !leadState.email) leadState.email = emailMatch[0];
-
-  // Teléfono
-  const phoneMatch = t.match(/\b(\d{3}[\s\-.]?\d{3}[\s\-.]?\d{4}|\d{10})\b/);
-  if (phoneMatch && !leadState.telefono) leadState.telefono = phoneMatch[0].replace(/[\s\.]/g, '-');
-
-  // Hora preferida
-  const horaMatch = t.match(/\b(10|11|12|[1-9])\s*(am|pm|AM|PM)\b/);
-  if (horaMatch && !leadState.hora_preferida) leadState.hora_preferida = horaMatch[0];
-
-  // Día preferido
-  const lower = t.toLowerCase();
-  if (!leadState.fecha_preferida) {
-    if (lower.includes('hoy'))                                         leadState.fecha_preferida = 'hoy';
-    else if (lower.includes('ma') && (lower.includes('ana') || lower.includes('ñana'))) leadState.fecha_preferida = 'mañana';
-    else if (lower.includes('lunes'))                                  leadState.fecha_preferida = 'lunes';
-    else if (lower.includes('martes'))                                 leadState.fecha_preferida = 'martes';
-    else if (lower.includes('miérc') || lower.includes('mierc'))      leadState.fecha_preferida = 'miercoles';
-    else if (lower.includes('jueves'))                                 leadState.fecha_preferida = 'jueves';
-    else if (lower.includes('viernes'))                                leadState.fecha_preferida = 'viernes';
-  }
-
-  // Tipo de negocio (palabras clave)
-  if (!leadState.tipo_negocio) {
-    if (lower.match(/dealer|auto|carro|lote|concesion|importa|financier|motor/)) leadState.tipo_negocio = 'Automotriz';
-    else if (lower.match(/barber|salon|salón|peluquer/))                          leadState.tipo_negocio = 'Barbería/Salón';
-    else if (lower.match(/casa|bienes raíces|bienes raices|inmobili|apartamento/)) leadState.tipo_negocio = 'Bienes Raíces';
-    else if (lower.match(/restauran|comida|food|café|cafe|bakery/))               leadState.tipo_negocio = 'Restaurante/Comida';
-    else if (lower.match(/clínica|clinica|médico|medico|doctor|salud/))           leadState.tipo_negocio = 'Clínica/Salud';
-  }
-}
-
-// ── ¿LISTO PARA AGENDAR? ─────────────────────────
-function readyToSchedule() {
-  return leadState.nombre &&
-         leadState.telefono &&
-         leadState.email &&
-         leadState.fecha_preferida &&
-         !leadState.scheduled;
-}
-
-// ── LLAMAR A APPSCRIPT ────────────────────────────
 async function postToAppScript(payload) {
   const res = await fetch(APPS_SCRIPT_URL, {
-    method:  'POST',
+    method: 'POST',
     headers: { 'Content-Type': 'text/plain' },
-    body:    JSON.stringify(payload)
+    body: JSON.stringify(payload)
   });
   return res.json();
 }
 
-// ── AGENDAR DEMO ──────────────────────────────────
-async function scheduleDemo() {
-  leadState.scheduled = true;
-  const payload = {
-    intent:           'demo',
-    nombre:           leadState.nombre,
-    telefono:         leadState.telefono,
-    email:            leadState.email,
-    tipo_negocio:     leadState.tipo_negocio || 'No especificado',
-    fecha_preferida:  leadState.fecha_preferida,
-    hora_preferida:   leadState.hora_preferida || '10am',
-    fuente:           'ARIA Chat'
-  };
-  console.log('Agendando demo:', payload);
-  try {
-    const d = await postToAppScript(payload);
-    console.log('✅ Respuesta AppScript:', d);
-    return d;
-  } catch(err) {
-    console.error('❌ Error agendando:', err);
-    leadState.scheduled = false;
-    return null;
-  }
-}
-
-// ── LLAMAR A CLAUDE VIA APPSCRIPT ─────────────────
-async function callARIA(userMsg) {
-  ariaHistory.push({ role: 'user', content: userMsg });
-  try {
-    const d = await postToAppScript({
-      type:     'aria_chat',
-      messages: ariaHistory
-    });
-    const reply = d.reply || '¿Puedes contarme más sobre tu negocio?';
-    ariaHistory.push({ role: 'assistant', content: reply });
-    return reply;
-  } catch(e) {
-    console.error('callARIA error:', e);
-    const fallbacks = [
-      '¿Qué tipo de negocio tienes? Así te digo exactamente cómo te ayudo.',
-      '¿Cuántos clientes nuevos recibes por mes aproximadamente?',
-      '¿Tienes 20 minutos esta semana para una demo en vivo?'
-    ];
-    return fallbacks[Math.floor(Math.random() * fallbacks.length)];
-  }
-}
-
-// ── FLUJO PRINCIPAL ───────────────────────────────
 async function respond(userMsg) {
   document.getElementById('cw-chips').style.display = 'none';
-
-  // Extraer datos del mensaje
-  extractFromMsg(userMsg);
-
-  // Llamar a ARIA
-  const reply = await callARIA(userMsg);
-
-  // Detectar nombre: si la respuesta de ARIA pide teléfono o email
-  // y el usuario dio texto simple sin números → es el nombre
-  const askedForContact = reply.toLowerCase().match(/tel[eé]fono|número|email|correo/);
-  const looksLikeName   = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]{2,40}$/.test(userMsg.trim())
-                          && !leadState.nombre
-                          && userMsg.trim().split(' ').length <= 4
-                          && !userMsg.match(/\d/);
-  if (askedForContact && looksLikeName) {
-    leadState.nombre = userMsg.trim();
+  ariaHistory.push({ role: 'user', content: userMsg });
+  try {
+    const d = await postToAppScript({ action: 'chat', messages: ariaHistory });
+    if (d.error) throw new Error(d.error);
+    const reply = d.reply || '¿Puedes contarme más sobre tu negocio?';
+    ariaHistory.push({ role: 'assistant', content: reply });
+    addBotMsg(reply);
+  } catch(e) {
+    console.error('ARIA error:', e);
+    addBotMsg('¿Puedes contarme más sobre tu negocio? Así te digo exactamente cómo te ayudo.');
   }
-
-  // Si hay todos los datos → agendar automáticamente
-  if (readyToSchedule()) {
-    const result = await scheduleDemo();
-    const horaStr = result && result.hora ? result.hora : leadState.fecha_preferida + ' a las ' + (leadState.hora_preferida || '10am');
-    addBotMsg('✅ ¡Listo ' + leadState.nombre + '! Tu demo quedó confirmada para el **' + horaStr + '**. Te llega confirmación a ' + leadState.email + '. ¡Nos vemos pronto!');
-    return;
-  }
-
-  addBotMsg(reply);
 }
 
-// ── ENVIAR MENSAJE ────────────────────────────────
 async function sendMsg() {
   const input = document.getElementById('cw-input');
   const text  = input.value.trim();
@@ -699,27 +578,24 @@ async function sendMsg() {
   await respond(text);
 }
 
-// ── FORM LANDING ──────────────────────────────────
 async function submitLead(e) {
   e.preventDefault();
-  const btn  = document.getElementById('submit-btn');
-  const form = e.target;
+  const btn = document.getElementById('submit-btn'), form = e.target;
   const data = {
-    nombre:      form.nombre.value.trim(),
-    telefono:    form.telefono.value.trim(),
-    tipo_negocio:form.tipo_negocio.value,
-    fuente:      'Landing DealerAmigo',
-    fecha:       new Date().toLocaleString('es-PR', { timeZone: 'America/Puerto_Rico' }),
-    intent:      'demo'
+    action:       'lead',
+    nombre:       form.nombre.value.trim(),
+    telefono:     form.telefono.value.trim(),
+    tipo_negocio: form.tipo_negocio.value,
+    fuente:       'Landing DealerAmigo',
+    intent:       'demo'
   };
   btn.textContent = 'Enviando...'; btn.disabled = true;
   try { await postToAppScript(data); } catch(_) {}
-  btn.textContent    = '✓ ¡Listo! Te contactamos hoy.';
+  btn.textContent = '✓ ¡Listo! Te contactamos hoy.';
   btn.style.background = '#16a34a';
   form.reset();
 }
 
-// ── EXIT INTENT ───────────────────────────────────
 let eiShown = false, eiDismissed = false;
 document.addEventListener('mouseleave', e => { if (e.clientY <= 0 && !eiShown && !eiDismissed) showExitIntent(); });
 let lastScrollY = 0;
@@ -729,8 +605,8 @@ window.addEventListener('scroll', () => {
   lastScrollY = cy;
 }, { passive: true });
 setTimeout(() => { if (!eiShown && !eiDismissed) showExitIntent(); }, 60000);
-function showExitIntent()    { eiShown = true; document.getElementById('ei-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeExitIntent()   { eiDismissed = true; document.getElementById('ei-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+function showExitIntent()  { eiShown = true; document.getElementById('ei-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeExitIntent() { eiDismissed = true; document.getElementById('ei-overlay').classList.remove('open'); document.body.style.overflow = ''; }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeExitIntent(); });
 document.getElementById('ei-overlay').addEventListener('click', e => { if (e.target === document.getElementById('ei-overlay')) closeExitIntent(); });
 
@@ -738,12 +614,12 @@ async function submitExitIntent(e) {
   e.preventDefault();
   const form = e.target, btn = document.getElementById('ei-submit-btn');
   const data = {
+    action:       'lead',
     nombre:       form.ei_nombre.value.trim(),
     telefono:     form.ei_telefono.value.trim(),
     email:        form.ei_email.value.trim(),
     tipo_negocio: 'Lead Magnet — PDF Brochure',
     fuente:       'Exit Intent — DealerAmigo',
-    fecha:        new Date().toLocaleString('es-PR', { timeZone: 'America/Puerto_Rico' }),
     intent:       'lead_magnet'
   };
   btn.textContent = 'Enviando...'; btn.disabled = true;
@@ -753,15 +629,14 @@ async function submitExitIntent(e) {
   setTimeout(() => closeExitIntent(), 8000);
 }
 
-// ── SCROLL ANIMATIONS ─────────────────────────────
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+    if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
   });
 }, { threshold: .1 });
 document.querySelectorAll('.flow-step,.faq-item,.demo-frame,.plan-card').forEach(el => {
-  el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
-  el.style.transition = 'opacity .5s ease,transform .5s ease';
+  el.style.opacity='0'; el.style.transform='translateY(16px)';
+  el.style.transition='opacity .5s ease,transform .5s ease';
   observer.observe(el);
 });
 </script>
